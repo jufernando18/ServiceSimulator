@@ -5,14 +5,14 @@ import javax.validation.constraints.NotNull;
 
 import co.com.ies.service.dto.sub.StatusDto;
 
-public class LaunchGameOutDto {
+public class LaunchGameModuleOut {
   
   @NotBlank
   private String url;
   @NotNull
   private StatusDto status;
 
-  public LaunchGameOutDto() {
+  public LaunchGameModuleOut() {
     super();
   }
 
@@ -22,7 +22,7 @@ public class LaunchGameOutDto {
    * @param url    url más token de acceso al juego
    * @param status estado con el que finalizó la operación
    */
-  public LaunchGameOutDto(String url, StatusDto status) {
+  public LaunchGameModuleOut(String url, StatusDto status) {
     super();
     this.url = url;
     this.status = status;
@@ -32,7 +32,7 @@ public class LaunchGameOutDto {
     return url;
   }
 
-  public LaunchGameOutDto setUrl(String url) {
+  public LaunchGameModuleOut setUrl(String url) {
     this.url = url;
     return this;
   }
@@ -41,7 +41,7 @@ public class LaunchGameOutDto {
     return status;
   }
 
-  public LaunchGameOutDto setStatus(StatusDto status) {
+  public LaunchGameModuleOut setStatus(StatusDto status) {
     this.status = status;
     return this;
   }
@@ -67,7 +67,7 @@ public class LaunchGameOutDto {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    LaunchGameOutDto other = (LaunchGameOutDto) obj;
+    LaunchGameModuleOut other = (LaunchGameModuleOut) obj;
     if (status == null) {
       if (other.status != null) {
         return false;
@@ -86,13 +86,13 @@ public class LaunchGameOutDto {
   }
 
   public boolean isEmpty() {
-    LaunchGameOutDto o = new LaunchGameOutDto();
+    LaunchGameModuleOut o = new LaunchGameModuleOut();
     return o.equals(this);
   }
 
   @Override
   public String toString() {
-    return "LaunchGameOperatorOutDTO [url=" + url + ", status=" + status + "]";
+    return "LaunchGameModuleOut [url=" + url + ", status=" + status + "]";
   }
 
 }

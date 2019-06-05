@@ -4,12 +4,12 @@ import co.com.ies.service.dto.sub.AccountDto;
 
 import javax.validation.constraints.NotNull;
 
-public class GetRoomsRequest {
+public class GetRoomsModuleRequest {
 
   @NotNull
   private AccountDto account;
 
-  public GetRoomsRequest() {
+  public GetRoomsModuleRequest() {
     super();
   }
 
@@ -23,7 +23,7 @@ public class GetRoomsRequest {
 
   @Override
   public String toString() {
-    return "GetRoomsRequest [account=" + account + "]";
+    return "GetRoomsModuleRequest [account=" + account + "]";
   }
   
   

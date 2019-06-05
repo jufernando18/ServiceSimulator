@@ -1,8 +1,12 @@
 package co.com.ies.service.dto.sub;
 
+import javax.validation.constraints.NotBlank;
+
 public class FigureAndAward {
 
+  @NotBlank
   private String figure;
+  @NotBlank
   private String award;
   
   public FigureAndAward() {
@@ -13,16 +17,18 @@ public class FigureAndAward {
     return figure;
   }
 
-  public void setFigure(String figure) {
+  public FigureAndAward setFigure(String figure) {
     this.figure = figure;
+    return this;
   }
 
   public String getAward() {
     return award;
   }
 
-  public void setAward(String award) {
+  public FigureAndAward setAward(String award) {
     this.award = award;
+    return this;
   }
 
   @Override

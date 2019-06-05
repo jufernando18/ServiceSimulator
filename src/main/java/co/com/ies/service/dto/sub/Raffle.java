@@ -31,48 +31,54 @@ public class Raffle {
     return state;
   }
 
-  public void setState(String state) {
+  public Raffle setState(String state) {
     this.state = state;
+    return this;
   }
 
   public Integer getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public Raffle setId(Integer id) {
     this.id = id;
+    return this;
   }
 
   public Date getLaunchingDate() {
     return launchingDate;
   }
 
-  public void setLaunchingDate(Date launchingDate) {
+  public Raffle setLaunchingDate(Date launchingDate) {
     this.launchingDate = launchingDate;
+    return this;
   }
 
   public BigDecimal getTablePrize() {
     return tablePrize;
   }
 
-  public void setTablePrize(BigDecimal tablePrize) {
+  public Raffle setTablePrize(BigDecimal tablePrize) {
     this.tablePrize = tablePrize;
+    return this;
   }
 
   public String getRaffleType() {
     return raffleType;
   }
 
-  public void setRaffleType(String raffleType) {
+  public Raffle setRaffleType(String raffleType) {
     this.raffleType = raffleType;
+    return this;
   }
 
   public List<FigureAndAward> getAwards() {
     return awards;
   }
 
-  public void setAwards(List<FigureAndAward> awards) {
+  public Raffle setAwards(List<FigureAndAward> awards) {
     this.awards = awards;
+    return this;
   }
 
   @Override

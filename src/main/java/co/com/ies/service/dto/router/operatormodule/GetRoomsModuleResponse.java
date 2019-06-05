@@ -6,12 +6,12 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-public class GetRoomsResponse {
+public class GetRoomsModuleResponse {
   
   @NotNull
   private List<Room> rooms;
 
-  public GetRoomsResponse() {
+  public GetRoomsModuleResponse() {
     super();
   }
 
@@ -19,13 +19,13 @@ public class GetRoomsResponse {
     return rooms;
   }
 
-  public GetRoomsResponse setRooms(List<Room> rooms) {
+  public GetRoomsModuleResponse setRooms(List<Room> rooms) {
     this.rooms = rooms;
     return this;
   }
 
   @Override
   public String toString() {
-    return "GetRoomsResponse [rooms=" + rooms + "]";
+    return "GetRoomsModuleResponse [rooms=" + rooms + "]";
   }
 }

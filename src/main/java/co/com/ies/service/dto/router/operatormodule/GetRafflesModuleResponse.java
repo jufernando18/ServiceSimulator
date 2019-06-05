@@ -1,4 +1,4 @@
-package co.com.ies.service.dto.router.operator;
+package co.com.ies.service.dto.router.operatormodule;
 
 import co.com.ies.service.dto.sub.Raffle;
 
@@ -6,12 +6,12 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-public class GetRafflesResponse {
-  
+public class GetRafflesModuleResponse {
+
   @NotNull
   private List<Raffle> raffles;
 
-  public GetRafflesResponse() {
+  public GetRafflesModuleResponse() {
     super();
   }
 
@@ -19,12 +19,13 @@ public class GetRafflesResponse {
     return raffles;
   }
 
-  public void setRaffles(List<Raffle> raffles) {
+  public GetRafflesModuleResponse setRaffles(List<Raffle> raffles) {
     this.raffles = raffles;
+    return this;
   }
 
   @Override
   public String toString() {
-    return "GetRafflesResponse [raffles=" + raffles + "]";
+    return "GetRafflesModuleResponse [raffles=" + raffles + "]";
   }
 }

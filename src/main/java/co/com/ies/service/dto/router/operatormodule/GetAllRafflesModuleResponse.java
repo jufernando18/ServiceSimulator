@@ -4,11 +4,14 @@ import co.com.ies.service.dto.sub.RoomAndRaffle;
 
 import java.util.List;
 
-public class GetAllRafflesResponse {
+import javax.validation.constraints.NotNull;
 
+public class GetAllRafflesModuleResponse {
+
+  @NotNull
   private List<RoomAndRaffle> allRaffles;
 
-  public GetAllRafflesResponse() {
+  public GetAllRafflesModuleResponse() {
     super();
   }
 
@@ -16,13 +19,14 @@ public class GetAllRafflesResponse {
     return allRaffles;
   }
 
-  public void setAllRaffles(List<RoomAndRaffle> allRaffles) {
+  public GetAllRafflesModuleResponse setAllRaffles(List<RoomAndRaffle> allRaffles) {
     this.allRaffles = allRaffles;
+    return this;
   }
 
   @Override
   public String toString() {
-    return "GetAllRafflesResponse [allRaffles=" + allRaffles + "]";
+    return "GetAllRafflesModuleResponse [allRaffles=" + allRaffles + "]";
   }
   
   
