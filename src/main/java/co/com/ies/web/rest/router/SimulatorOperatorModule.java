@@ -8,8 +8,9 @@ import co.com.ies.service.dto.router.operatormodule.GetRoomsModuleRequest;
 import co.com.ies.service.dto.router.operatormodule.GetRoomsModuleResponse;
 import co.com.ies.service.dto.sub.FigureAndAward;
 import co.com.ies.service.dto.sub.Raffle;
-import co.com.ies.service.dto.sub.Room;
+import co.com.ies.service.dto.sub.RaffleResume;
 import co.com.ies.service.dto.sub.RoomAndRaffle;
+import co.com.ies.service.dto.sub.RoomAndRaffleResume;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -29,14 +30,66 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/simulatoroperatormodule")
 public class SimulatorOperatorModule {
 
+  private static final Long ROOM_ID = 1L;
+  private static final Long ROOM_ID2 = 2L;
+  private static final Long RAFFLE_ID = 1L;
+  private static final Long RAFFLE_ID2 = 2L;
+  private static final Long RAFFLE_ID3 = 3L;
+  private static final Long RAFFLE_ID4 = 4L;
+  private static final String FIGURE = "1";
+  private static final String FIGURE2 = "2";
+  private static final String FIGURE3 = "3";
+  private static final String FIGURE4 = "4";
+  private static final String FIGURE5 = "5";
+  private static final String FIGURE6 = "6";
+  private static final String FIGURE7 = "7";
+  private static final String FIGURE8 = "8";
+  private static final String AWARD = "40000";
+  private static final String AWARD2 = "20000";
+  private static final String AWARD3 = "50.6";
+  private static final String AWARD4 = "30.0";
+  private static final String AWARD5 = "58.7";
+  private static final String AWARD6 = "33.2";
+  private static final String AWARD7 = "700000";
+  private static final String AWARD8 = "300000";  
+  private static final String ROOM_NAME = "verdolaga";
+  private static final String ROOM_NAME2 = "grandes premios";
+  private static final String ROOM_DESCRIPTION = "Sala de bingos para eventos del atletico nacional";
+  private static final String ROOM_DESCRIPTION2 = "Sala de bingos con los más grandes premios";
+  private static final String RAFFLE_NAME = "sorteo preventa verdolaga";
+  private static final String RAFFLE_NAME2 = "sorteo familia verdolaga";
+  private static final String RAFFLE_NAME3 = "gran sorteo acumulado semanal";
+  private static final String RAFFLE_NAME4 = "gran sorteo acumulado mensual";
+  private static final Date RAFFLE_DATE = Date.from(Instant.EPOCH);
+  private static final Date RAFFLE_DATE2 = Date.from(Instant.now());
+  private static final String PENDIENTE = "PENDIENTE";
+  private static final String INICIADO = "INICIADO";
+  private static final String FINALIZADO = "FINALIZADO";
+  private static final String CANCELADO = "CANCELADO";
+  private static final String PORCENTUAL = "PORCENTUAL";
+  private static final String GARANTIZADO = "GARANTIZADO";
+  private static final BigDecimal TABLE_PRIZE = new BigDecimal(1000);
+  private static final BigDecimal TABLE_PRIZE2 = new BigDecimal(4000);
+  private static final BigDecimal TABLE_PRIZE3 = new BigDecimal(3000);
+  private static final BigDecimal TABLE_PRIZE4 = new BigDecimal(5000);
+
   @PostMapping("/getrooms")
   @ResponseBody
   public GetRoomsModuleResponse getBingoRooms(@Valid @RequestBody GetRoomsModuleRequest request) {
-    List<Room> lista = new ArrayList<>();
-    lista.add(new Room().setName("verdolaga").setDescription("Sala de bingos para eventos del atletico nacional").setForPlaying(26));
-    lista.add(new Room().setName("grandes premios").setDescription("Sala de bingos con los más grandes premios").setForPlaying(5));
+    List<RoomAndRaffleResume> roomAndRaffleResumeList = new ArrayList<>();
+    List<RaffleResume> raffleResumeList = new ArrayList<>();
+    List<RaffleResume> raffleResumeList2 = new ArrayList<>();
 
-    return new GetRoomsModuleResponse().setRooms(lista);
+    raffleResumeList.add(new RaffleResume().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE));
+    raffleResumeList.add(new RaffleResume().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE2));
+    raffleResumeList2.add(new RaffleResume().setId(RAFFLE_ID3).setName(RAFFLE_NAME3).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE2));
+    raffleResumeList2.add(new RaffleResume().setId(RAFFLE_ID4).setName(RAFFLE_NAME4).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE));
+    roomAndRaffleResumeList.add(new RoomAndRaffleResume().setId(ROOM_ID).setName(ROOM_NAME)
+        .setDescription(ROOM_DESCRIPTION).setRafflesResume(raffleResumeList));
+    roomAndRaffleResumeList.add(new RoomAndRaffleResume().setId(ROOM_ID2).setName(ROOM_NAME2)
+        .setDescription(ROOM_DESCRIPTION2).setRafflesResume(raffleResumeList2));
+
+    return new GetRoomsModuleResponse().setRooms(roomAndRaffleResumeList);
   }
 
   @PostMapping("/getraffles")
@@ -47,17 +100,17 @@ public class SimulatorOperatorModule {
     List<FigureAndAward> figureAndAwardList2 = new ArrayList<>();
     List<Raffle> raffleList = new ArrayList<>();
 
-    figureAndAwardList.add(new FigureAndAward().setFigure("7").setAward("20000"));
-    figureAndAwardList.add(new FigureAndAward().setFigure("3").setAward("40000"));
+    figureAndAwardList.add(new FigureAndAward().setFigure(FIGURE).setAward(AWARD));
+    figureAndAwardList.add(new FigureAndAward().setFigure(FIGURE2).setAward(AWARD2));
 
-    figureAndAwardList2.add(new FigureAndAward().setFigure("1").setAward("30.3"));
-    figureAndAwardList2.add(new FigureAndAward().setFigure("11").setAward("48.5"));
+    figureAndAwardList2.add(new FigureAndAward().setFigure(FIGURE3).setAward(AWARD3));
+    figureAndAwardList2.add(new FigureAndAward().setFigure(FIGURE4).setAward(AWARD4));
 
-    raffleList.add(new Raffle().setId(1).setState("PENDIENTE").setRaffleType("GARANTIZADO")
-        .setTablePrize(new BigDecimal(1000.0)).setLaunchingDate(Date.from(Instant.now()))
+    raffleList.add(new Raffle().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setRaffleType(GARANTIZADO)
+        .setTablePrize(TABLE_PRIZE).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList));
-    raffleList.add(new Raffle().setId(2).setState("FINALIZADO").setRaffleType("PORCENTUAL")
-        .setTablePrize(new BigDecimal(4000.0)).setLaunchingDate(Date.from(Instant.EPOCH))
+    raffleList.add(new Raffle().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(FINALIZADO).setRaffleType(PORCENTUAL)
+        .setTablePrize(TABLE_PRIZE2).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList2));
 
     return new GetRafflesModuleResponse().setRaffles(raffleList);
@@ -67,45 +120,45 @@ public class SimulatorOperatorModule {
   @ResponseBody
   public GetAllRafflesModuleResponse getAllBingoRaffles(
       @Valid @RequestBody GetAllRafflesModuleRequest request) {
-    List<FigureAndAward> figureAndAwardList = new ArrayList<>(); 
-    List<FigureAndAward> figureAndAwardList2 = new ArrayList<>(); 
-    List<FigureAndAward> figureAndAwardList3 = new ArrayList<>(); 
+    List<FigureAndAward> figureAndAwardList = new ArrayList<>();
+    List<FigureAndAward> figureAndAwardList2 = new ArrayList<>();
+    List<FigureAndAward> figureAndAwardList3 = new ArrayList<>();
     List<FigureAndAward> figureAndAwardList4 = new ArrayList<>();
     List<Raffle> raffleList = new ArrayList<>();
-    List<Raffle> raffleList2 = new ArrayList<>(); 
+    List<Raffle> raffleList2 = new ArrayList<>();
     List<RoomAndRaffle> roomAndRaffleList = new ArrayList<>();
 
-    figureAndAwardList.add(new FigureAndAward().setFigure("7").setAward("20000"));
-    figureAndAwardList.add(new FigureAndAward().setFigure("3").setAward("40000"));
+    figureAndAwardList.add(new FigureAndAward().setFigure(FIGURE).setAward(AWARD));
+    figureAndAwardList.add(new FigureAndAward().setFigure(FIGURE2).setAward(AWARD2));
 
-    figureAndAwardList2.add(new FigureAndAward().setFigure("1").setAward("30.3"));
-    figureAndAwardList2.add(new FigureAndAward().setFigure("11").setAward("48.5"));
-    
-    figureAndAwardList3.add(new FigureAndAward().setFigure("4").setAward("20.2"));
-    figureAndAwardList3.add(new FigureAndAward().setFigure("6").setAward("65.1"));
-    
-    figureAndAwardList4.add(new FigureAndAward().setFigure("8").setAward("200000"));
-    figureAndAwardList4.add(new FigureAndAward().setFigure("13").setAward("400000"));
+    figureAndAwardList2.add(new FigureAndAward().setFigure(FIGURE3).setAward(AWARD3));
+    figureAndAwardList2.add(new FigureAndAward().setFigure(FIGURE4).setAward(AWARD4));
 
-    raffleList.add(new Raffle().setId(1).setState("PENDIENTE").setRaffleType("GARANTIZADO")
-        .setTablePrize(new BigDecimal(1000.0)).setLaunchingDate(Date.from(Instant.now()))
+    figureAndAwardList3.add(new FigureAndAward().setFigure(FIGURE5).setAward(AWARD5));
+    figureAndAwardList3.add(new FigureAndAward().setFigure(FIGURE6).setAward(AWARD6));
+
+    figureAndAwardList4.add(new FigureAndAward().setFigure(FIGURE7).setAward(AWARD7));
+    figureAndAwardList4.add(new FigureAndAward().setFigure(FIGURE8).setAward(AWARD8));
+
+    raffleList.add(new Raffle().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setRaffleType(GARANTIZADO)
+        .setTablePrize(TABLE_PRIZE).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList));
-    raffleList.add(new Raffle().setId(2).setState("FINALIZADO").setRaffleType("PORCENTUAL")
-        .setTablePrize(new BigDecimal(4000.0)).setLaunchingDate(Date.from(Instant.EPOCH))
+    raffleList.add(new Raffle().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(FINALIZADO).setRaffleType(PORCENTUAL)
+        .setTablePrize(TABLE_PRIZE2).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList2));
-    
-    raffleList2.add(new Raffle().setId(5).setState("INICIADO").setRaffleType("PORCENTUAL")
-        .setTablePrize(new BigDecimal(3000.0)).setLaunchingDate(Date.from(Instant.EPOCH))
+
+    raffleList2.add(new Raffle().setId(RAFFLE_ID3).setName(RAFFLE_NAME3).setState(INICIADO).setRaffleType(PORCENTUAL)
+        .setTablePrize(TABLE_PRIZE3).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList3));
-    raffleList2.add(new Raffle().setId(7).setState("CANCELADO").setRaffleType("GARANTIZADO")
-        .setTablePrize(new BigDecimal(5000.0)).setLaunchingDate(Date.from(Instant.now()))
+    raffleList2.add(new Raffle().setId(RAFFLE_ID4).setName(RAFFLE_NAME4).setState(CANCELADO).setRaffleType(GARANTIZADO)
+        .setTablePrize(TABLE_PRIZE4).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList4));
 
-    roomAndRaffleList.add(new RoomAndRaffle().setName("verdolaga").setDescription("Sala de bingos para eventos del atletico nacional")
-        .setForPlaying(26).setRaffles(raffleList));
+    roomAndRaffleList.add(new RoomAndRaffle().setId(ROOM_ID).setName(ROOM_NAME).setDescription(ROOM_DESCRIPTION)
+        .setRaffles(raffleList));
 
-    roomAndRaffleList.add(new RoomAndRaffle().setName("grandes premios").setDescription("Sala de bingos con los más grandes premios")
-        .setForPlaying(5).setRaffles(raffleList2));
+    roomAndRaffleList.add(new RoomAndRaffle().setId(ROOM_ID2).setName(ROOM_NAME2).setDescription(ROOM_DESCRIPTION2)
+        .setRaffles(raffleList2));
 
     return new GetAllRafflesModuleResponse().setAllRaffles(roomAndRaffleList);
   }

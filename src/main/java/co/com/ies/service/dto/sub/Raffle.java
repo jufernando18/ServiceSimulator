@@ -7,13 +7,17 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.PositiveOrZero;
 
 public class Raffle {
 
   @NotBlank
   private String state;
+  @NotBlank
+  private String name;
   @NotNull
-  private Integer id;
+  @PositiveOrZero
+  private Long id;
   @PastOrPresent
   private Date launchingDate;
   @NotNull
@@ -36,11 +40,20 @@ public class Raffle {
     return this;
   }
 
-  public Integer getId() {
+  public String getName() {
+    return name;
+  }
+
+  public Raffle setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public Long getId() {
     return id;
   }
 
-  public Raffle setId(Integer id) {
+  public Raffle setId(Long id) {
     this.id = id;
     return this;
   }
@@ -83,9 +96,9 @@ public class Raffle {
 
   @Override
   public String toString() {
-    return "Raffle [state=" + state + ", id=" + id + ", launchingDate=" + launchingDate
-        + ", tablePrize=" + tablePrize + ", raffleType=" + raffleType + ", awards=" + awards + "]";
+    return "Raffle [state=" + state + ", name=" + name + ", id=" + id + ", launchingDate="
+        + launchingDate + ", tablePrize=" + tablePrize + ", raffleType=" + raffleType + ", awards="
+        + awards + "]";
   }
-  
   
 }

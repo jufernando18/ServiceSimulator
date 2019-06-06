@@ -25,6 +25,6 @@ public class GetRoomsModuleRequest {
   public String toString() {
     return "GetRoomsModuleRequest [account=" + account + "]";
   }
-  
-  
+
+
 }

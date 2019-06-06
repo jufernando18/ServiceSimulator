@@ -1,13 +1,17 @@
 package co.com.ies.service.dto.router.operatormodule;
 
-import co.com.ies.service.dto.sub.AccountDto;
-
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
+import co.com.ies.service.dto.sub.AccountDto;
 
 public class GetRafflesModuleRequest {
 
   @NotNull
   private AccountDto account;
+  @NotNull
+  @PositiveOrZero
+  private Long roomId;
 
   public GetRafflesModuleRequest() {
     super();
@@ -22,10 +26,18 @@ public class GetRafflesModuleRequest {
     return this;
   }
 
+  public Long getRoom() {
+    return roomId;
+  }
+
+  public GetRafflesModuleRequest setRoom(Long roomId) {
+    this.roomId = roomId;
+    return this;
+  }
+
   @Override
   public String toString() {
-    return "GetRafflesModuleRequest [account=" + account + "]";
+    return "GetRafflesModuleRequest [account=" + account + ", roomId=" + roomId + "]";
   }
-  
-  
+
 }

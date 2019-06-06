@@ -25,6 +25,5 @@ public class GetRoomsRequest {
   public String toString() {
     return "GetRoomsRequest [account=" + account + "]";
   }
-  
-  
+
 }

@@ -1,25 +1,25 @@
 package co.com.ies.service.dto.router.operator;
 
-import co.com.ies.service.dto.sub.Room;
-
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import co.com.ies.service.dto.sub.RoomAndRaffleResume;
+
 public class GetRoomsResponse {
   
   @NotNull
-  private List<Room> rooms;
+  private List<RoomAndRaffleResume> rooms;
 
   public GetRoomsResponse() {
     super();
   }
 
-  public List<Room> getRooms() {
+  public List<RoomAndRaffleResume> getRooms() {
     return rooms;
   }
 
-  public GetRoomsResponse setRooms(List<Room> rooms) {
+  public GetRoomsResponse setRooms(List<RoomAndRaffleResume> rooms) {
     this.rooms = rooms;
     return this;
   }
