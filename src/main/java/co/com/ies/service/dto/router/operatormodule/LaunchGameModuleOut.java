@@ -6,26 +6,16 @@ import javax.validation.constraints.NotNull;
 import co.com.ies.service.dto.sub.StatusDto;
 
 public class LaunchGameModuleOut {
-  
+
   @NotBlank
   private String url;
+  @NotBlank
+  private String token;
   @NotNull
   private StatusDto status;
 
   public LaunchGameModuleOut() {
     super();
-  }
-
-  /**
-   * Modelo de información que se entrega como respuesta al operador.
-   * 
-   * @param url    url más token de acceso al juego
-   * @param status estado con el que finalizó la operación
-   */
-  public LaunchGameModuleOut(String url, StatusDto status) {
-    super();
-    this.url = url;
-    this.status = status;
   }
 
   public String getUrl() {
@@ -34,6 +24,15 @@ public class LaunchGameModuleOut {
 
   public LaunchGameModuleOut setUrl(String url) {
     this.url = url;
+    return this;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public LaunchGameModuleOut setToken(String token) {
+    this.token = token;
     return this;
   }
 
@@ -51,6 +50,7 @@ public class LaunchGameModuleOut {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((status == null) ? 0 : status.hashCode());
+    result = prime * result + ((token == null) ? 0 : token.hashCode());
     result = prime * result + ((url == null) ? 0 : url.hashCode());
     return result;
   }
@@ -58,30 +58,28 @@ public class LaunchGameModuleOut {
   @SuppressWarnings("all")
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     LaunchGameModuleOut other = (LaunchGameModuleOut) obj;
     if (status == null) {
-      if (other.status != null) {
+      if (other.status != null)
         return false;
-      }
-    } else if (!status.equals(other.status)) {
+    } else if (!status.equals(other.status))
       return false;
-    }
+    if (token == null) {
+      if (other.token != null)
+        return false;
+    } else if (!token.equals(other.token))
+      return false;
     if (url == null) {
-      if (other.url != null) {
+      if (other.url != null)
         return false;
-      }
-    } else if (!url.equals(other.url)) {
+    } else if (!url.equals(other.url))
       return false;
-    }
     return true;
   }
 
@@ -92,7 +90,7 @@ public class LaunchGameModuleOut {
 
   @Override
   public String toString() {
-    return "LaunchGameModuleOut [url=" + url + ", status=" + status + "]";
+    return "LaunchGameModuleOut [url=" + url + ", token=" + token + ", status=" + status + "]";
   }
 
 }

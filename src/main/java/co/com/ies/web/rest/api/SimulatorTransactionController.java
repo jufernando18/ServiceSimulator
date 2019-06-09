@@ -51,7 +51,7 @@ public class SimulatorTransactionController {
     TransactionDto transactionOutDto = new TransactionDto()
         .setOperationType(operationType)
         .setToken(token)
-        .setUrl(url)
+        //.setUrl(url)
         .setBody(body2);
     logger.debug("{}", transactionOutDto);
     logger.debug("############TRANSACTION_ENDING############");

@@ -6,11 +6,14 @@ import co.com.ies.service.dto.router.operatormodule.GetRafflesModuleRequest;
 import co.com.ies.service.dto.router.operatormodule.GetRafflesModuleResponse;
 import co.com.ies.service.dto.router.operatormodule.GetRoomsModuleRequest;
 import co.com.ies.service.dto.router.operatormodule.GetRoomsModuleResponse;
+import co.com.ies.service.dto.router.operatormodule.LaunchGameModuleIn;
+import co.com.ies.service.dto.router.operatormodule.LaunchGameModuleOut;
 import co.com.ies.service.dto.sub.FigureAndAward;
 import co.com.ies.service.dto.sub.Raffle;
 import co.com.ies.service.dto.sub.RaffleResume;
 import co.com.ies.service.dto.sub.RoomAndRaffle;
 import co.com.ies.service.dto.sub.RoomAndRaffleResume;
+import co.com.ies.service.dto.sub.StatusDto;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -73,6 +76,12 @@ public class SimulatorOperatorModule {
   private static final BigDecimal TABLE_PRIZE3 = new BigDecimal(3000);
   private static final BigDecimal TABLE_PRIZE4 = new BigDecimal(5000);
 
+  @PostMapping("/launchgame")
+  @ResponseBody
+  public LaunchGameModuleOut getGame(@Valid @RequestBody LaunchGameModuleIn request) {
+    return new LaunchGameModuleOut().setUrl("endpointUrl").setToken("gameToken").setStatus(new StatusDto());
+  }
+  
   @PostMapping("/getrooms")
   @ResponseBody
   public GetRoomsModuleResponse getBingoRooms(@Valid @RequestBody GetRoomsModuleRequest request) {
