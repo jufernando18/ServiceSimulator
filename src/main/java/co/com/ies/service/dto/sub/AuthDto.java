@@ -1,12 +1,8 @@
 package co.com.ies.service.dto.sub;
 
-import javax.validation.constraints.NotBlank;
-
 public class AuthDto {
 
-  @NotBlank
   private String user;
-  @NotBlank
   private String pass;
 
   public AuthDto() {

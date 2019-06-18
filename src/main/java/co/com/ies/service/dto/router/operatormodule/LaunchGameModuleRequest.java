@@ -1,4 +1,4 @@
-package co.com.ies.service.dto.router.operator;
+package co.com.ies.service.dto.router.operatormodule;
 
 import co.com.ies.service.dto.sub.AccountDto;
 
@@ -17,13 +17,13 @@ import javax.validation.constraints.Size;
  *
  */
 
-public class LaunchGameInDto {
+public class LaunchGameModuleRequest {
 
   @NotBlank
   private String gameCode; // código del juego que solicita
   @NotNull
-  @Min(0)
-  @Max(1)
+  @Min(value = 0)
+  @Max(value = 1)
   private Integer platform; // plataforma
   @NotBlank
   @Size(min = 3, max = 3)
@@ -43,7 +43,7 @@ public class LaunchGameInDto {
   @NotNull
   private AccountDto account; // {userName,password} credenciales de acceso
 
-  public LaunchGameInDto() {
+  public LaunchGameModuleRequest() {
     super();
   }
 
@@ -51,7 +51,7 @@ public class LaunchGameInDto {
     return gameCode;
   }
 
-  public LaunchGameInDto setGameCode(String gameCode) {
+  public LaunchGameModuleRequest setGameCode(String gameCode) {
     this.gameCode = gameCode;
     return this;
   }
@@ -60,7 +60,7 @@ public class LaunchGameInDto {
     return platform;
   }
 
-  public LaunchGameInDto setPlatform(Integer platform) {
+  public LaunchGameModuleRequest setPlatform(Integer platform) {
     this.platform = platform;
     return this;
   }
@@ -69,7 +69,7 @@ public class LaunchGameInDto {
     return currencyCode;
   }
 
-  public LaunchGameInDto setCurrencyCode(String currencyCode) {
+  public LaunchGameModuleRequest setCurrencyCode(String currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
@@ -78,7 +78,7 @@ public class LaunchGameInDto {
     return languageCode;
   }
 
-  public LaunchGameInDto setLanguageCode(String languageCode) {
+  public LaunchGameModuleRequest setLanguageCode(String languageCode) {
     this.languageCode = languageCode;
     return this;
   }
@@ -87,7 +87,7 @@ public class LaunchGameInDto {
     return playerIp;
   }
 
-  public LaunchGameInDto setPlayerIp(String playerIp) {
+  public LaunchGameModuleRequest setPlayerIp(String playerIp) {
     this.playerIp = playerIp;
     return this;
   }
@@ -96,7 +96,7 @@ public class LaunchGameInDto {
     return playerId;
   }
 
-  public LaunchGameInDto setPlayerId(String playerId) {
+  public LaunchGameModuleRequest setPlayerId(String playerId) {
     this.playerId = playerId;
     return this;
   }
@@ -105,7 +105,7 @@ public class LaunchGameInDto {
     return countryCode;
   }
 
-  public LaunchGameInDto setCountryCode(String countryCode) {
+  public LaunchGameModuleRequest setCountryCode(String countryCode) {
     this.countryCode = countryCode;
     return this;
   }
@@ -114,7 +114,7 @@ public class LaunchGameInDto {
     return totalBalance;
   }
 
-  public LaunchGameInDto setTotalBalance(BigDecimal totalBalance) {
+  public LaunchGameModuleRequest setTotalBalance(BigDecimal totalBalance) {
     this.totalBalance = totalBalance;
     return this;
   }
@@ -123,11 +123,13 @@ public class LaunchGameInDto {
     return account;
   }
 
-  public LaunchGameInDto setAccount(AccountDto account) {
+  public LaunchGameModuleRequest setAccount(AccountDto account) {
     this.account = account;
     return this;
   }
 
+  
+  
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -144,93 +146,61 @@ public class LaunchGameInDto {
     return result;
   }
 
-  @SuppressWarnings("all")
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
-    LaunchGameInDto other = (LaunchGameInDto) obj;
+    LaunchGameModuleRequest other = (LaunchGameModuleRequest) obj;
     if (account == null) {
-      if (other.account != null) {
+      if (other.account != null)
         return false;
-      }
-    } else if (!account.equals(other.account)) {
+    } else if (!account.equals(other.account))
       return false;
-    }
     if (countryCode == null) {
-      if (other.countryCode != null) {
+      if (other.countryCode != null)
         return false;
-      }
-    } else if (!countryCode.equals(other.countryCode)) {
+    } else if (!countryCode.equals(other.countryCode))
       return false;
-    }
     if (currencyCode == null) {
-      if (other.currencyCode != null) {
+      if (other.currencyCode != null)
         return false;
-      }
-    } else if (!currencyCode.equals(other.currencyCode)) {
+    } else if (!currencyCode.equals(other.currencyCode))
       return false;
-    }
     if (gameCode == null) {
-      if (other.gameCode != null) {
+      if (other.gameCode != null)
         return false;
-      }
-    } else if (!gameCode.equals(other.gameCode)) {
+    } else if (!gameCode.equals(other.gameCode))
       return false;
-    }
     if (languageCode == null) {
-      if (other.languageCode != null) {
+      if (other.languageCode != null)
         return false;
-      }
-    } else if (!languageCode.equals(other.languageCode)) {
+    } else if (!languageCode.equals(other.languageCode))
       return false;
-    }
     if (platform == null) {
-      if (other.platform != null) {
+      if (other.platform != null)
         return false;
-      }
-    } else if (!platform.equals(other.platform)) {
+    } else if (!platform.equals(other.platform))
       return false;
-    }
     if (playerId == null) {
-      if (other.playerId != null) {
+      if (other.playerId != null)
         return false;
-      }
-    } else if (!playerId.equals(other.playerId)) {
+    } else if (!playerId.equals(other.playerId))
       return false;
-    }
     if (playerIp == null) {
-      if (other.playerIp != null) {
+      if (other.playerIp != null)
         return false;
-      }
-    } else if (!playerIp.equals(other.playerIp)) {
+    } else if (!playerIp.equals(other.playerIp))
       return false;
-    }
     if (totalBalance == null) {
-      if (other.totalBalance != null) {
+      if (other.totalBalance != null)
         return false;
-      }
-    } else if (!totalBalance.equals(other.totalBalance)) {
+    } else if (!totalBalance.equals(other.totalBalance))
       return false;
-    }
     return true;
-  }
-
-  /**
-   * .
-   * 
-   * @return .
-   */
-  public boolean isEmpty() {
-    LaunchGameInDto o = new LaunchGameInDto();
-    return o.equals(this);
   }
 
   @Override

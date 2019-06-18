@@ -8,6 +8,7 @@ public class GetRoomsModuleRequest {
 
   @NotNull
   private AccountDto account;
+  private String filter;
 
   public GetRoomsModuleRequest() {
     super();
@@ -17,14 +18,55 @@ public class GetRoomsModuleRequest {
     return account;
   }
 
-  public void setAccount(AccountDto account) {
+  public GetRoomsModuleRequest setAccount(AccountDto account) {
     this.account = account;
+    return this;
+  }
+
+  public String getFilter() {
+    return filter;
+  }
+
+  public GetRoomsModuleRequest setFilter(String filter) {
+    this.filter = filter;
+    return this;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((account == null) ? 0 : account.hashCode());
+    result = prime * result + ((filter == null) ? 0 : filter.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    GetRoomsModuleRequest other = (GetRoomsModuleRequest) obj;
+    if (account == null) {
+      if (other.account != null)
+        return false;
+    } else if (!account.equals(other.account))
+      return false;
+    if (filter == null) {
+      if (other.filter != null)
+        return false;
+    } else if (!filter.equals(other.filter))
+      return false;
+    return true;
   }
 
   @Override
   public String toString() {
-    return "GetRoomsModuleRequest [account=" + account + "]";
-  }
-
-
+    return "GetRoomsModuleRequest [account=" + account + ", filter=" + filter + "]";
+  } 
+  
+  
 }

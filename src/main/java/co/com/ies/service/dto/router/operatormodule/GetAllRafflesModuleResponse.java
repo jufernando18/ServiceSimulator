@@ -24,9 +24,36 @@ public class GetAllRafflesModuleResponse {
     return this;
   }
 
+  
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((allRaffles == null) ? 0 : allRaffles.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    GetAllRafflesModuleResponse other = (GetAllRafflesModuleResponse) obj;
+    if (allRaffles == null) {
+      if (other.allRaffles != null)
+        return false;
+    } else if (!allRaffles.equals(other.allRaffles))
+      return false;
+    return true;
+  }
+
   @Override
   public String toString() {
-    return "GetAllRafflesModuleResponse [allRaffles=" + allRaffles + "]";
+    return "GetAllRafflesResponse [allRaffles=" + allRaffles + "]";
   }
   
   

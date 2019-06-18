@@ -42,6 +42,8 @@ public class AccountDto {
     return this;
   }
 
+  
+  
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -53,36 +55,24 @@ public class AccountDto {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     AccountDto other = (AccountDto) obj;
     if (password == null) {
-      if (other.password != null) {
+      if (other.password != null)
         return false;
-      }
-    } else if (!password.equals(other.password)) {
+    } else if (!password.equals(other.password))
       return false;
-    }
     if (userName == null) {
-      if (other.userName != null) {
+      if (other.userName != null)
         return false;
-      }
-    } else if (!userName.equals(other.userName)) {
+    } else if (!userName.equals(other.userName))
       return false;
-    }
     return true;
-  }
-
-  public boolean isEmpty() {
-    AccountDto o = new AccountDto();
-    return o.equals(this);
   }
 
   @Override

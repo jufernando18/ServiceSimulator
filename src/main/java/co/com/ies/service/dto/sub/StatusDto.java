@@ -1,13 +1,11 @@
 package co.com.ies.service.dto.sub;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class StatusDto {
   
   @NotNull
   private Integer errorCode;
-  @NotBlank
   private String errorMsg;
 
   public StatusDto() {
@@ -44,6 +42,8 @@ public class StatusDto {
     return this;
   }
 
+  
+  
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -55,36 +55,24 @@ public class StatusDto {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     StatusDto other = (StatusDto) obj;
     if (errorCode == null) {
-      if (other.errorCode != null) {
+      if (other.errorCode != null)
         return false;
-      }
-    } else if (!errorCode.equals(other.errorCode)) {
+    } else if (!errorCode.equals(other.errorCode))
       return false;
-    }
     if (errorMsg == null) {
-      if (other.errorMsg != null) {
+      if (other.errorMsg != null)
         return false;
-      }
-    } else if (!errorMsg.equals(other.errorMsg)) {
+    } else if (!errorMsg.equals(other.errorMsg))
       return false;
-    }
     return true;
-  }
-
-  public boolean isEmpty() {
-    StatusDto o = new StatusDto();
-    return o.equals(this);
   }
 
   @Override

@@ -6,14 +6,13 @@ import co.com.ies.service.dto.router.operatormodule.GetRafflesModuleRequest;
 import co.com.ies.service.dto.router.operatormodule.GetRafflesModuleResponse;
 import co.com.ies.service.dto.router.operatormodule.GetRoomsModuleRequest;
 import co.com.ies.service.dto.router.operatormodule.GetRoomsModuleResponse;
-import co.com.ies.service.dto.router.operatormodule.LaunchGameModuleIn;
-import co.com.ies.service.dto.router.operatormodule.LaunchGameModuleOut;
+import co.com.ies.service.dto.router.operatormodule.LaunchGameModuleRequest;
+import co.com.ies.service.dto.router.operatormodule.LaunchGameModuleResponse;
 import co.com.ies.service.dto.sub.FigureAndAward;
 import co.com.ies.service.dto.sub.Raffle;
 import co.com.ies.service.dto.sub.RaffleResume;
 import co.com.ies.service.dto.sub.RoomAndRaffle;
 import co.com.ies.service.dto.sub.RoomAndRaffleResume;
-import co.com.ies.service.dto.sub.StatusDto;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -69,17 +68,25 @@ public class SimulatorOperatorModule {
   private static final String INICIADO = "INICIADO";
   private static final String FINALIZADO = "FINALIZADO";
   private static final String CANCELADO = "CANCELADO";
+  private static final String STATE_DESCRIPTION = "Descripción del estado actual del sorteo preventa verdolaga";
+  private static final String STATE_DESCRIPTION2 = "Descripción del estado actual del sorteo familia verdolaga";
+  private static final String STATE_DESCRIPTION3 = null;
+  private static final String STATE_DESCRIPTION4 = "Descripción del estado actual del gran sorteo acumulado mensual";
   private static final String PORCENTUAL = "PORCENTUAL";
   private static final String GARANTIZADO = "GARANTIZADO";
-  private static final BigDecimal TABLE_PRIZE = new BigDecimal(1000);
-  private static final BigDecimal TABLE_PRIZE2 = new BigDecimal(4000);
-  private static final BigDecimal TABLE_PRIZE3 = new BigDecimal(3000);
-  private static final BigDecimal TABLE_PRIZE4 = new BigDecimal(5000);
+  private static final BigDecimal TABLE_PRICE = new BigDecimal(1000);
+  private static final BigDecimal TABLE_PRICE2 = new BigDecimal(4000);
+  private static final BigDecimal TABLE_PRICE3 = new BigDecimal(3000);
+  private static final BigDecimal TABLE_PRICE4 = new BigDecimal(5000);
+  private static final BigDecimal MINIMUM_SALE = new BigDecimal(200000);
+  private static final BigDecimal MINIMUM_SALE2 = new BigDecimal(400000);
+  private static final BigDecimal MINIMUM_SALE3 = new BigDecimal(1530000);
+  private static final BigDecimal MINIMUM_SALE4 = new BigDecimal(3450000);
 
   @PostMapping("/launchgame")
   @ResponseBody
-  public LaunchGameModuleOut getGame(@Valid @RequestBody LaunchGameModuleIn request) {
-    return new LaunchGameModuleOut().setUrl("endpointUrl").setToken("gameToken").setStatus(new StatusDto());
+  public LaunchGameModuleResponse getGame(@Valid @RequestBody LaunchGameModuleRequest request) {
+    return new LaunchGameModuleResponse().setUrl("endpointUrl").setToken("gameToken");
   }
   
   @PostMapping("/getrooms")
@@ -89,10 +96,10 @@ public class SimulatorOperatorModule {
     List<RaffleResume> raffleResumeList = new ArrayList<>();
     List<RaffleResume> raffleResumeList2 = new ArrayList<>();
 
-    raffleResumeList.add(new RaffleResume().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE));
-    raffleResumeList.add(new RaffleResume().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE2));
+    raffleResumeList.add(new RaffleResume().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION).setLaunchingDate(RAFFLE_DATE));
+    raffleResumeList.add(new RaffleResume().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION2).setLaunchingDate(RAFFLE_DATE2));
     raffleResumeList2.add(new RaffleResume().setId(RAFFLE_ID3).setName(RAFFLE_NAME3).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE2));
-    raffleResumeList2.add(new RaffleResume().setId(RAFFLE_ID4).setName(RAFFLE_NAME4).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE));
+    raffleResumeList2.add(new RaffleResume().setId(RAFFLE_ID4).setName(RAFFLE_NAME4).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION4).setLaunchingDate(RAFFLE_DATE));
     roomAndRaffleResumeList.add(new RoomAndRaffleResume().setId(ROOM_ID).setName(ROOM_NAME)
         .setDescription(ROOM_DESCRIPTION).setRafflesResume(raffleResumeList));
     roomAndRaffleResumeList.add(new RoomAndRaffleResume().setId(ROOM_ID2).setName(ROOM_NAME2)
@@ -115,11 +122,11 @@ public class SimulatorOperatorModule {
     figureAndAwardList2.add(new FigureAndAward().setFigure(FIGURE3).setAward(AWARD3));
     figureAndAwardList2.add(new FigureAndAward().setFigure(FIGURE4).setAward(AWARD4));
 
-    raffleList.add(new Raffle().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setRaffleType(GARANTIZADO)
-        .setTablePrize(TABLE_PRIZE).setLaunchingDate(RAFFLE_DATE2)
+    raffleList.add(new Raffle().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescripcion(STATE_DESCRIPTION).setRaffleType(GARANTIZADO)
+        .setTablePrice(TABLE_PRICE).setMinimunSale(MINIMUM_SALE).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList));
-    raffleList.add(new Raffle().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(FINALIZADO).setRaffleType(PORCENTUAL)
-        .setTablePrize(TABLE_PRIZE2).setLaunchingDate(RAFFLE_DATE)
+    raffleList.add(new Raffle().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(FINALIZADO).setStateDescripcion(STATE_DESCRIPTION2).setRaffleType(PORCENTUAL)
+        .setTablePrice(TABLE_PRICE2).setMinimunSale(MINIMUM_SALE2).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList2));
 
     return new GetRafflesModuleResponse().setRaffles(raffleList);
@@ -149,18 +156,18 @@ public class SimulatorOperatorModule {
     figureAndAwardList4.add(new FigureAndAward().setFigure(FIGURE7).setAward(AWARD7));
     figureAndAwardList4.add(new FigureAndAward().setFigure(FIGURE8).setAward(AWARD8));
 
-    raffleList.add(new Raffle().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setRaffleType(GARANTIZADO)
-        .setTablePrize(TABLE_PRIZE).setLaunchingDate(RAFFLE_DATE2)
+    raffleList.add(new Raffle().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescripcion(STATE_DESCRIPTION).setRaffleType(GARANTIZADO)
+        .setTablePrice(TABLE_PRICE).setMinimunSale(MINIMUM_SALE).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList));
-    raffleList.add(new Raffle().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(FINALIZADO).setRaffleType(PORCENTUAL)
-        .setTablePrize(TABLE_PRIZE2).setLaunchingDate(RAFFLE_DATE)
+    raffleList.add(new Raffle().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(FINALIZADO).setStateDescripcion(STATE_DESCRIPTION2).setRaffleType(PORCENTUAL)
+        .setTablePrice(TABLE_PRICE2).setMinimunSale(MINIMUM_SALE2).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList2));
 
-    raffleList2.add(new Raffle().setId(RAFFLE_ID3).setName(RAFFLE_NAME3).setState(INICIADO).setRaffleType(PORCENTUAL)
-        .setTablePrize(TABLE_PRIZE3).setLaunchingDate(RAFFLE_DATE)
+    raffleList2.add(new Raffle().setId(RAFFLE_ID3).setName(RAFFLE_NAME3).setState(INICIADO).setStateDescripcion(STATE_DESCRIPTION3).setRaffleType(PORCENTUAL)
+        .setTablePrice(TABLE_PRICE3).setMinimunSale(MINIMUM_SALE3).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList3));
-    raffleList2.add(new Raffle().setId(RAFFLE_ID4).setName(RAFFLE_NAME4).setState(CANCELADO).setRaffleType(GARANTIZADO)
-        .setTablePrize(TABLE_PRIZE4).setLaunchingDate(RAFFLE_DATE2)
+    raffleList2.add(new Raffle().setId(RAFFLE_ID4).setName(RAFFLE_NAME4).setState(CANCELADO).setStateDescripcion(STATE_DESCRIPTION4).setRaffleType(GARANTIZADO)
+        .setTablePrice(TABLE_PRICE4).setMinimunSale(MINIMUM_SALE4).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList4));
 
     roomAndRaffleList.add(new RoomAndRaffle().setId(ROOM_ID).setName(ROOM_NAME).setDescription(ROOM_DESCRIPTION)

@@ -6,37 +6,39 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 
 public class Raffle {
 
-  @NotBlank
-  private String state;
-  @NotBlank
-  private String name;
   @NotNull
   @PositiveOrZero
   private Long id;
-  @PastOrPresent
+  @NotBlank
+  private String name;
+  @NotBlank
+  private String state;
+  private String stateDescripcion;
+  @NotNull
   private Date launchingDate;
   @NotNull
-  private BigDecimal tablePrize;
+  private BigDecimal tablePrice;
+  @NotNull
+  private BigDecimal minimunSale;
   @NotBlank
   private String raffleType;
   @NotNull
   private List<FigureAndAward> awards;
-  
+
   public Raffle() {
     super();
   }
 
-  public String getState() {
-    return state;
+  public Long getId() {
+    return id;
   }
 
-  public Raffle setState(String state) {
-    this.state = state;
+  public Raffle setId(Long id) {
+    this.id = id;
     return this;
   }
 
@@ -49,12 +51,21 @@ public class Raffle {
     return this;
   }
 
-  public Long getId() {
-    return id;
+  public String getState() {
+    return state;
   }
 
-  public Raffle setId(Long id) {
-    this.id = id;
+  public Raffle setState(String state) {
+    this.state = state;
+    return this;
+  }
+
+  public String getStateDescripcion() {
+    return stateDescripcion;
+  }
+
+  public Raffle setStateDescripcion(String stateDescripcion) {
+    this.stateDescripcion = stateDescripcion;
     return this;
   }
 
@@ -67,12 +78,21 @@ public class Raffle {
     return this;
   }
 
-  public BigDecimal getTablePrize() {
-    return tablePrize;
+  public BigDecimal getTablePrice() {
+    return tablePrice;
   }
 
-  public Raffle setTablePrize(BigDecimal tablePrize) {
-    this.tablePrize = tablePrize;
+  public Raffle setTablePrice(BigDecimal tablePrice) {
+    this.tablePrice = tablePrice;
+    return this;
+  }
+
+  public BigDecimal getMinimunSale() {
+    return minimunSale;
+  }
+
+  public Raffle setMinimunSale(BigDecimal minimunSale) {
+    this.minimunSale = minimunSale;
     return this;
   }
 
@@ -95,10 +115,84 @@ public class Raffle {
   }
 
   @Override
-  public String toString() {
-    return "Raffle [state=" + state + ", name=" + name + ", id=" + id + ", launchingDate="
-        + launchingDate + ", tablePrize=" + tablePrize + ", raffleType=" + raffleType + ", awards="
-        + awards + "]";
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((awards == null) ? 0 : awards.hashCode());
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((launchingDate == null) ? 0 : launchingDate.hashCode());
+    result = prime * result + ((minimunSale == null) ? 0 : minimunSale.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((raffleType == null) ? 0 : raffleType.hashCode());
+    result = prime * result + ((state == null) ? 0 : state.hashCode());
+    result = prime * result + ((stateDescripcion == null) ? 0 : stateDescripcion.hashCode());
+    result = prime * result + ((tablePrice == null) ? 0 : tablePrice.hashCode());
+    return result;
   }
-  
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Raffle other = (Raffle) obj;
+    if (awards == null) {
+      if (other.awards != null)
+        return false;
+    } else if (!awards.equals(other.awards))
+      return false;
+    if (id == null) {
+      if (other.id != null)
+        return false;
+    } else if (!id.equals(other.id))
+      return false;
+    if (launchingDate == null) {
+      if (other.launchingDate != null)
+        return false;
+    } else if (!launchingDate.equals(other.launchingDate))
+      return false;
+    if (minimunSale == null) {
+      if (other.minimunSale != null)
+        return false;
+    } else if (!minimunSale.equals(other.minimunSale))
+      return false;
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    if (raffleType == null) {
+      if (other.raffleType != null)
+        return false;
+    } else if (!raffleType.equals(other.raffleType))
+      return false;
+    if (state == null) {
+      if (other.state != null)
+        return false;
+    } else if (!state.equals(other.state))
+      return false;
+    if (stateDescripcion == null) {
+      if (other.stateDescripcion != null)
+        return false;
+    } else if (!stateDescripcion.equals(other.stateDescripcion))
+      return false;
+    if (tablePrice == null) {
+      if (other.tablePrice != null)
+        return false;
+    } else if (!tablePrice.equals(other.tablePrice))
+      return false;
+    return true;
+  }
+
+  @Override
+  public String toString() {
+    return "Raffle [id=" + id + ", name=" + name + ", state=" + state + ", stateDescripcion="
+        + stateDescripcion + ", launchingDate=" + launchingDate + ", tablePrice=" + tablePrice
+        + ", minimunSale=" + minimunSale + ", raffleType=" + raffleType + ", awards=" + awards
+        + "]";
+  }
+
 }
