@@ -2,16 +2,15 @@ package co.com.ies.service.dto.router.operatormodule;
 
 import co.com.ies.service.dto.sub.AccountDto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 public class GetRafflesModuleRequest {
 
   @NotNull
   private AccountDto account;
-  @NotNull
-  @PositiveOrZero
-  private Long roomId;
+  @NotBlank
+  private String roomName;
   private String filter;
 
   public GetRafflesModuleRequest() {
@@ -27,12 +26,12 @@ public class GetRafflesModuleRequest {
     return this;
   }
 
-  public Long getRoomId() {
-    return roomId;
+  public String getRoomName() {
+    return roomName;
   }
 
-  public GetRafflesModuleRequest setRoomId(Long roomId) {
-    this.roomId = roomId;
+  public GetRafflesModuleRequest setRoomName(String roomName) {
+    this.roomName = roomName;
     return this;
   }
 
@@ -51,7 +50,7 @@ public class GetRafflesModuleRequest {
     int result = 1;
     result = prime * result + ((account == null) ? 0 : account.hashCode());
     result = prime * result + ((filter == null) ? 0 : filter.hashCode());
-    result = prime * result + ((roomId == null) ? 0 : roomId.hashCode());
+    result = prime * result + ((roomName == null) ? 0 : roomName.hashCode());
     return result;
   }
 
@@ -74,17 +73,17 @@ public class GetRafflesModuleRequest {
         return false;
     } else if (!filter.equals(other.filter))
       return false;
-    if (roomId == null) {
-      if (other.roomId != null)
+    if (roomName == null) {
+      if (other.roomName != null)
         return false;
-    } else if (!roomId.equals(other.roomId))
+    } else if (!roomName.equals(other.roomName))
       return false;
     return true;
   }
 
   @Override
   public String toString() {
-    return "GetRafflesModuleRequest [account=" + account + ", roomId=" + roomId + ", filter="
+    return "GetRafflesModuleRequest [account=" + account + ", roomName=" + roomName + ", filter="
         + filter + "]";
   }
 

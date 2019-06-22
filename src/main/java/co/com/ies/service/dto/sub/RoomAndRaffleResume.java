@@ -8,9 +8,6 @@ import javax.validation.constraints.PositiveOrZero;
 
 public class RoomAndRaffleResume {
 
-  @NotNull
-  @PositiveOrZero
-  private Long id;
   @NotBlank
   private String name;
   private String description;
@@ -19,15 +16,6 @@ public class RoomAndRaffleResume {
 
   public RoomAndRaffleResume() {
     super();
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public RoomAndRaffleResume setId(Long id) {
-    this.id = id;
-    return this;
   }
 
   public String getName() {
@@ -64,7 +52,6 @@ public class RoomAndRaffleResume {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((rafflesResume == null) ? 0 : rafflesResume.hashCode());
     return result;
@@ -84,11 +71,6 @@ public class RoomAndRaffleResume {
         return false;
     } else if (!description.equals(other.description))
       return false;
-    if (id == null) {
-      if (other.id != null)
-        return false;
-    } else if (!id.equals(other.id))
-      return false;
     if (name == null) {
       if (other.name != null)
         return false;
@@ -104,7 +86,7 @@ public class RoomAndRaffleResume {
 
   @Override
   public String toString() {
-    return "RoomAndRaffleResume [id=" + id + ", name=" + name + ", description=" + description
+    return "RoomAndRaffleResume [name=" + name + ", description=" + description
         + ", rafflesResume=" + rafflesResume + "]";
   }
 

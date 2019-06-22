@@ -4,13 +4,11 @@ import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 public class RaffleResume {
 
-  @NotNull
-  @PositiveOrZero
-  private Long id;
+  @NotBlank
+  private String gameCode;
   @NotBlank
   private String name;
   @NotBlank
@@ -23,12 +21,12 @@ public class RaffleResume {
     super();
   }
 
-  public Long getId() {
-    return id;
+  public String getGameCode() {
+    return gameCode;
   }
 
-  public RaffleResume setId(Long id) {
-    this.id = id;
+  public RaffleResume setGameCode(String gameCode) {
+    this.gameCode = gameCode;
     return this;
   }
 
@@ -72,7 +70,7 @@ public class RaffleResume {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((gameCode == null) ? 0 : gameCode.hashCode());
     result = prime * result + ((launchingDate == null) ? 0 : launchingDate.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((state == null) ? 0 : state.hashCode());
@@ -89,10 +87,10 @@ public class RaffleResume {
     if (getClass() != obj.getClass())
       return false;
     RaffleResume other = (RaffleResume) obj;
-    if (id == null) {
-      if (other.id != null)
+    if (gameCode == null) {
+      if (other.gameCode != null)
         return false;
-    } else if (!id.equals(other.id))
+    } else if (!gameCode.equals(other.gameCode))
       return false;
     if (launchingDate == null) {
       if (other.launchingDate != null)
@@ -119,8 +117,8 @@ public class RaffleResume {
 
   @Override
   public String toString() {
-    return "RaffleResume [id=" + id + ", name=" + name + ", state=" + state + ", stateDescription="
-        + stateDescription + ", launchingDate=" + launchingDate + "]";
+    return "RaffleResume [gameCode=" + gameCode + ", name=" + name + ", state=" + state
+        + ", stateDescription=" + stateDescription + ", launchingDate=" + launchingDate + "]";
   }
 
 }

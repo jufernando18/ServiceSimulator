@@ -32,12 +32,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/simulatoroperatormodule")
 public class SimulatorOperatorModule {
 
-  private static final Long ROOM_ID = 1L;
-  private static final Long ROOM_ID2 = 2L;
-  private static final Long RAFFLE_ID = 1L;
-  private static final Long RAFFLE_ID2 = 2L;
-  private static final Long RAFFLE_ID3 = 3L;
-  private static final Long RAFFLE_ID4 = 4L;
+  private static final String GAME_CODE = "wplay/1/5";
+  private static final String GAME_CODE2 = "wplay/2/6";
+  private static final String GAME_CODE3 = "wplay/3/7";
+  private static final String GAME_CODE4 = "wplay/4/10";
   private static final String FIGURE = "1";
   private static final String FIGURE2 = "2";
   private static final String FIGURE3 = "3";
@@ -96,13 +94,13 @@ public class SimulatorOperatorModule {
     List<RaffleResume> raffleResumeList = new ArrayList<>();
     List<RaffleResume> raffleResumeList2 = new ArrayList<>();
 
-    raffleResumeList.add(new RaffleResume().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION).setLaunchingDate(RAFFLE_DATE));
-    raffleResumeList.add(new RaffleResume().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION2).setLaunchingDate(RAFFLE_DATE2));
-    raffleResumeList2.add(new RaffleResume().setId(RAFFLE_ID3).setName(RAFFLE_NAME3).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE2));
-    raffleResumeList2.add(new RaffleResume().setId(RAFFLE_ID4).setName(RAFFLE_NAME4).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION4).setLaunchingDate(RAFFLE_DATE));
-    roomAndRaffleResumeList.add(new RoomAndRaffleResume().setId(ROOM_ID).setName(ROOM_NAME)
+    raffleResumeList.add(new RaffleResume().setGameCode(GAME_CODE).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION).setLaunchingDate(RAFFLE_DATE));
+    raffleResumeList.add(new RaffleResume().setGameCode(GAME_CODE2).setName(RAFFLE_NAME2).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION2).setLaunchingDate(RAFFLE_DATE2));
+    raffleResumeList2.add(new RaffleResume().setGameCode(GAME_CODE3).setName(RAFFLE_NAME3).setState(PENDIENTE).setLaunchingDate(RAFFLE_DATE2));
+    raffleResumeList2.add(new RaffleResume().setGameCode(GAME_CODE4).setName(RAFFLE_NAME4).setState(PENDIENTE).setStateDescription(STATE_DESCRIPTION4).setLaunchingDate(RAFFLE_DATE));
+    roomAndRaffleResumeList.add(new RoomAndRaffleResume().setName(ROOM_NAME)
         .setDescription(ROOM_DESCRIPTION).setRafflesResume(raffleResumeList));
-    roomAndRaffleResumeList.add(new RoomAndRaffleResume().setId(ROOM_ID2).setName(ROOM_NAME2)
+    roomAndRaffleResumeList.add(new RoomAndRaffleResume().setName(ROOM_NAME2)
         .setDescription(ROOM_DESCRIPTION2).setRafflesResume(raffleResumeList2));
 
     return new GetRoomsModuleResponse().setRooms(roomAndRaffleResumeList);
@@ -122,10 +120,10 @@ public class SimulatorOperatorModule {
     figureAndAwardList2.add(new FigureAndAward().setFigure(FIGURE3).setAward(AWARD3));
     figureAndAwardList2.add(new FigureAndAward().setFigure(FIGURE4).setAward(AWARD4));
 
-    raffleList.add(new Raffle().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescripcion(STATE_DESCRIPTION).setRaffleType(GARANTIZADO)
+    raffleList.add(new Raffle().setGameCode(GAME_CODE).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescripcion(STATE_DESCRIPTION).setRaffleType(GARANTIZADO)
         .setTablePrice(TABLE_PRICE).setMinimunSale(MINIMUM_SALE).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList));
-    raffleList.add(new Raffle().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(FINALIZADO).setStateDescripcion(STATE_DESCRIPTION2).setRaffleType(PORCENTUAL)
+    raffleList.add(new Raffle().setGameCode(GAME_CODE2).setName(RAFFLE_NAME2).setState(FINALIZADO).setStateDescripcion(STATE_DESCRIPTION2).setRaffleType(PORCENTUAL)
         .setTablePrice(TABLE_PRICE2).setMinimunSale(MINIMUM_SALE2).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList2));
 
@@ -156,24 +154,24 @@ public class SimulatorOperatorModule {
     figureAndAwardList4.add(new FigureAndAward().setFigure(FIGURE7).setAward(AWARD7));
     figureAndAwardList4.add(new FigureAndAward().setFigure(FIGURE8).setAward(AWARD8));
 
-    raffleList.add(new Raffle().setId(RAFFLE_ID).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescripcion(STATE_DESCRIPTION).setRaffleType(GARANTIZADO)
+    raffleList.add(new Raffle().setGameCode(GAME_CODE).setName(RAFFLE_NAME).setState(PENDIENTE).setStateDescripcion(STATE_DESCRIPTION).setRaffleType(GARANTIZADO)
         .setTablePrice(TABLE_PRICE).setMinimunSale(MINIMUM_SALE).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList));
-    raffleList.add(new Raffle().setId(RAFFLE_ID2).setName(RAFFLE_NAME2).setState(FINALIZADO).setStateDescripcion(STATE_DESCRIPTION2).setRaffleType(PORCENTUAL)
+    raffleList.add(new Raffle().setGameCode(GAME_CODE2).setName(RAFFLE_NAME2).setState(FINALIZADO).setStateDescripcion(STATE_DESCRIPTION2).setRaffleType(PORCENTUAL)
         .setTablePrice(TABLE_PRICE2).setMinimunSale(MINIMUM_SALE2).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList2));
 
-    raffleList2.add(new Raffle().setId(RAFFLE_ID3).setName(RAFFLE_NAME3).setState(INICIADO).setStateDescripcion(STATE_DESCRIPTION3).setRaffleType(PORCENTUAL)
+    raffleList2.add(new Raffle().setGameCode(GAME_CODE3).setName(RAFFLE_NAME3).setState(INICIADO).setStateDescripcion(STATE_DESCRIPTION3).setRaffleType(PORCENTUAL)
         .setTablePrice(TABLE_PRICE3).setMinimunSale(MINIMUM_SALE3).setLaunchingDate(RAFFLE_DATE)
         .setAwards(figureAndAwardList3));
-    raffleList2.add(new Raffle().setId(RAFFLE_ID4).setName(RAFFLE_NAME4).setState(CANCELADO).setStateDescripcion(STATE_DESCRIPTION4).setRaffleType(GARANTIZADO)
+    raffleList2.add(new Raffle().setGameCode(GAME_CODE4).setName(RAFFLE_NAME4).setState(CANCELADO).setStateDescripcion(STATE_DESCRIPTION4).setRaffleType(GARANTIZADO)
         .setTablePrice(TABLE_PRICE4).setMinimunSale(MINIMUM_SALE4).setLaunchingDate(RAFFLE_DATE2)
         .setAwards(figureAndAwardList4));
 
-    roomAndRaffleList.add(new RoomAndRaffle().setId(ROOM_ID).setName(ROOM_NAME).setDescription(ROOM_DESCRIPTION)
+    roomAndRaffleList.add(new RoomAndRaffle().setName(ROOM_NAME).setDescription(ROOM_DESCRIPTION)
         .setRaffles(raffleList));
 
-    roomAndRaffleList.add(new RoomAndRaffle().setId(ROOM_ID2).setName(ROOM_NAME2).setDescription(ROOM_DESCRIPTION2)
+    roomAndRaffleList.add(new RoomAndRaffle().setName(ROOM_NAME2).setDescription(ROOM_DESCRIPTION2)
         .setRaffles(raffleList2));
 
     return new GetAllRafflesModuleResponse().setAllRaffles(roomAndRaffleList);

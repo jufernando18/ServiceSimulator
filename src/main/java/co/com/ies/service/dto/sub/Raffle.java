@@ -6,13 +6,11 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 public class Raffle {
 
-  @NotNull
-  @PositiveOrZero
-  private Long id;
+  @NotBlank
+  private String gameCode;
   @NotBlank
   private String name;
   @NotBlank
@@ -33,12 +31,12 @@ public class Raffle {
     super();
   }
 
-  public Long getId() {
-    return id;
+  public String getGameCode() {
+    return gameCode;
   }
 
-  public Raffle setId(Long id) {
-    this.id = id;
+  public Raffle setGameCode(String gameCode) {
+    this.gameCode = gameCode;
     return this;
   }
 
@@ -119,7 +117,7 @@ public class Raffle {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((awards == null) ? 0 : awards.hashCode());
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((gameCode == null) ? 0 : gameCode.hashCode());
     result = prime * result + ((launchingDate == null) ? 0 : launchingDate.hashCode());
     result = prime * result + ((minimunSale == null) ? 0 : minimunSale.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -144,10 +142,10 @@ public class Raffle {
         return false;
     } else if (!awards.equals(other.awards))
       return false;
-    if (id == null) {
-      if (other.id != null)
+    if (gameCode == null) {
+      if (other.gameCode != null)
         return false;
-    } else if (!id.equals(other.id))
+    } else if (!gameCode.equals(other.gameCode))
       return false;
     if (launchingDate == null) {
       if (other.launchingDate != null)
@@ -189,10 +187,10 @@ public class Raffle {
 
   @Override
   public String toString() {
-    return "Raffle [id=" + id + ", name=" + name + ", state=" + state + ", stateDescripcion="
-        + stateDescripcion + ", launchingDate=" + launchingDate + ", tablePrice=" + tablePrice
-        + ", minimunSale=" + minimunSale + ", raffleType=" + raffleType + ", awards=" + awards
-        + "]";
+    return "Raffle [gameCode=" + gameCode + ", name=" + name + ", state=" + state
+        + ", stateDescripcion=" + stateDescripcion + ", launchingDate=" + launchingDate
+        + ", tablePrice=" + tablePrice + ", minimunSale=" + minimunSale + ", raffleType="
+        + raffleType + ", awards=" + awards + "]";
   }
 
 }
