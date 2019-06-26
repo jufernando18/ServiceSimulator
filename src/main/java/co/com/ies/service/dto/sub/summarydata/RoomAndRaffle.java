@@ -1,8 +1,10 @@
-package co.com.ies.service.dto.sub;
+package co.com.ies.service.dto.sub.summarydata;
 
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+
+import co.com.ies.service.dto.sub.Room;
 
 public class RoomAndRaffle {
 
@@ -10,11 +12,10 @@ public class RoomAndRaffle {
   private Room room;
   @NotNull
   private List<Raffle> raffles;
-  
+
   public RoomAndRaffle() {
     super();
   }
-
 
   public Room getRoom() {
     return room;
@@ -24,6 +25,7 @@ public class RoomAndRaffle {
     this.room = room;
     return this;
   }
+
 
   public List<Raffle> getRaffles() {
     return raffles;
@@ -69,6 +71,4 @@ public class RoomAndRaffle {
   public String toString() {
     return "RoomAndRaffle [raffles=" + raffles + ", room=" + room + "]";
   }
-
-  
 }

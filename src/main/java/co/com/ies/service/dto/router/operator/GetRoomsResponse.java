@@ -1,6 +1,6 @@
 package co.com.ies.service.dto.router.operator;
 
-import co.com.ies.service.dto.sub.RoomAndRaffleResume;
+import co.com.ies.service.dto.sub.summarydata.RoomAndRaffle;
 import co.com.ies.service.dto.sub.StatusDto;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class GetRoomsResponse {
   
   @NotNull
-  private List<RoomAndRaffleResume> rooms;
+  private List<RoomAndRaffle> rooms;
   @NotNull
   private StatusDto status;
 
@@ -18,11 +18,11 @@ public class GetRoomsResponse {
     super();
   }
 
-  public List<RoomAndRaffleResume> getRooms() {
+  public List<RoomAndRaffle> getRooms() {
     return rooms;
   }
 
-  public GetRoomsResponse setRooms(List<RoomAndRaffleResume> rooms) {
+  public GetRoomsResponse setRooms(List<RoomAndRaffle> rooms) {
     this.rooms = rooms;
     return this;
   }

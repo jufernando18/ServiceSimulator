@@ -1,11 +1,11 @@
-package co.com.ies.service.dto.sub;
+package co.com.ies.service.dto.sub.summarydata;
 
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class RaffleResume {
+public class Raffle {
 
   @NotBlank
   private String gameCode;
@@ -17,7 +17,7 @@ public class RaffleResume {
   @NotNull
   private Date launchingDate;
 
-  public RaffleResume() {
+  public Raffle() {
     super();
   }
 
@@ -25,7 +25,7 @@ public class RaffleResume {
     return gameCode;
   }
 
-  public RaffleResume setGameCode(String gameCode) {
+  public Raffle setGameCode(String gameCode) {
     this.gameCode = gameCode;
     return this;
   }
@@ -34,7 +34,7 @@ public class RaffleResume {
     return name;
   }
 
-  public RaffleResume setName(String name) {
+  public Raffle setName(String name) {
     this.name = name;
     return this;
   }
@@ -43,7 +43,7 @@ public class RaffleResume {
     return state;
   }
 
-  public RaffleResume setState(String state) {
+  public Raffle setState(String state) {
     this.state = state;
     return this;
   }
@@ -52,7 +52,7 @@ public class RaffleResume {
     return stateDescription;
   }
 
-  public RaffleResume setStateDescription(String stateDescription) {
+  public Raffle setStateDescription(String stateDescription) {
     this.stateDescription = stateDescription;
     return this;
   }
@@ -61,7 +61,7 @@ public class RaffleResume {
     return launchingDate;
   }
 
-  public RaffleResume setLaunchingDate(Date launchingDate) {
+  public Raffle setLaunchingDate(Date launchingDate) {
     this.launchingDate = launchingDate;
     return this;
   }
@@ -86,7 +86,7 @@ public class RaffleResume {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    RaffleResume other = (RaffleResume) obj;
+    Raffle other = (Raffle) obj;
     if (gameCode == null) {
       if (other.gameCode != null)
         return false;
@@ -117,7 +117,7 @@ public class RaffleResume {
 
   @Override
   public String toString() {
-    return "RaffleResume [gameCode=" + gameCode + ", name=" + name + ", state=" + state
+    return "Raffle [gameCode=" + gameCode + ", name=" + name + ", state=" + state
         + ", stateDescription=" + stateDescription + ", launchingDate=" + launchingDate + "]";
   }
 

@@ -15,15 +15,13 @@ public class Raffle {
   private String name;
   @NotBlank
   private String state;
-  private String stateDescripcion;
+  private String stateDescription;
   @NotNull
   private Date launchingDate;
   @NotNull
   private BigDecimal tablePrice;
   @NotNull
   private BigDecimal minimunSale;
-  @NotBlank
-  private String raffleType;
   @NotNull
   private List<FigureAndAward> awards;
 
@@ -58,12 +56,12 @@ public class Raffle {
     return this;
   }
 
-  public String getStateDescripcion() {
-    return stateDescripcion;
+  public String getStateDescription() {
+    return stateDescription;
   }
 
-  public Raffle setStateDescripcion(String stateDescripcion) {
-    this.stateDescripcion = stateDescripcion;
+  public Raffle setStateDescription(String stateDescription) {
+    this.stateDescription = stateDescription;
     return this;
   }
 
@@ -94,15 +92,6 @@ public class Raffle {
     return this;
   }
 
-  public String getRaffleType() {
-    return raffleType;
-  }
-
-  public Raffle setRaffleType(String raffleType) {
-    this.raffleType = raffleType;
-    return this;
-  }
-
   public List<FigureAndAward> getAwards() {
     return awards;
   }
@@ -121,9 +110,8 @@ public class Raffle {
     result = prime * result + ((launchingDate == null) ? 0 : launchingDate.hashCode());
     result = prime * result + ((minimunSale == null) ? 0 : minimunSale.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
-    result = prime * result + ((raffleType == null) ? 0 : raffleType.hashCode());
     result = prime * result + ((state == null) ? 0 : state.hashCode());
-    result = prime * result + ((stateDescripcion == null) ? 0 : stateDescripcion.hashCode());
+    result = prime * result + ((stateDescription == null) ? 0 : stateDescription.hashCode());
     result = prime * result + ((tablePrice == null) ? 0 : tablePrice.hashCode());
     return result;
   }
@@ -162,20 +150,15 @@ public class Raffle {
         return false;
     } else if (!name.equals(other.name))
       return false;
-    if (raffleType == null) {
-      if (other.raffleType != null)
-        return false;
-    } else if (!raffleType.equals(other.raffleType))
-      return false;
     if (state == null) {
       if (other.state != null)
         return false;
     } else if (!state.equals(other.state))
       return false;
-    if (stateDescripcion == null) {
-      if (other.stateDescripcion != null)
+    if (stateDescription == null) {
+      if (other.stateDescription != null)
         return false;
-    } else if (!stateDescripcion.equals(other.stateDescripcion))
+    } else if (!stateDescription.equals(other.stateDescription))
       return false;
     if (tablePrice == null) {
       if (other.tablePrice != null)
@@ -188,9 +171,8 @@ public class Raffle {
   @Override
   public String toString() {
     return "Raffle [gameCode=" + gameCode + ", name=" + name + ", state=" + state
-        + ", stateDescripcion=" + stateDescripcion + ", launchingDate=" + launchingDate
-        + ", tablePrice=" + tablePrice + ", minimunSale=" + minimunSale + ", raffleType="
-        + raffleType + ", awards=" + awards + "]";
+        + ", stateDescription=" + stateDescription + ", launchingDate=" + launchingDate
+        + ", tablePrice=" + tablePrice + ", minimunSale=" + minimunSale + ", awards=" + awards + "]";
   }
 
 }
