@@ -23,12 +23,13 @@ import co.com.ies.service.dto.api.RollbackOperatorOutDto;
 @RequestMapping("/simuladoroperador")
 public class SimulatorOperatorController {
   private static final String PLAYER_ID = "bingoplayerid7";
-  private static final BigDecimal TOTAL_BALANCE = BigDecimal.valueOf(1.1);
+  private static final BigDecimal TOTAL_BALANCE = BigDecimal.valueOf(10000.1);
   private static final String TOKEN = "123t2o2k2e2n123";
   private static final Integer HAS_ERROR_NOT = 0;
   private static final Integer ERROR_ID = 0;
   private static final String ERROR_DESCRIPTION = "";
   private static final String PLATFORM_TRANSACTION_ID = "124platform421";
+  private BigDecimal totalBalance = TOTAL_BALANCE;
 
   /**
    * .
@@ -41,9 +42,9 @@ public class SimulatorOperatorController {
   public AuthenticateOperatorInDto authenticate(
       @Valid @RequestBody AuthenticateOperatorOutDto operatorOut) {
     return new AuthenticateOperatorInDto()
-        .setTotalBalance(TOTAL_BALANCE)
+        .setTotalBalance(totalBalance)
         .setPlayerId(PLAYER_ID)
-        .setToken(TOKEN)
+        .setToken(operatorOut.getToken())
         .setHasError(HAS_ERROR_NOT)
         .setErrorId(ERROR_ID)
         .setErrorDescription(ERROR_DESCRIPTION);
@@ -59,8 +60,9 @@ public class SimulatorOperatorController {
   @ResponseBody
   public DebitAndCreditOperatorInDto debitAndCredit(
       @Valid @RequestBody DebitAndCreditOperatorOutDto operatorOut) {
+    totalBalance = totalBalance.add(operatorOut.getCreditAmount()).subtract(operatorOut.getDebitAmount());
     return new DebitAndCreditOperatorInDto()
-        .setTotalBalance(TOTAL_BALANCE)
+        .setTotalBalance(totalBalance)
         .setPlayerId(PLAYER_ID)
         .setToken(TOKEN)
         .setHasError(HAS_ERROR_NOT)
@@ -100,7 +102,7 @@ public class SimulatorOperatorController {
   public GetBalanceOperatorInDto getBalance(
       @Valid @RequestBody GetBalanceOperatorOutDto operatorOut) {
     return new GetBalanceOperatorInDto()
-        .setTotalBalance(TOTAL_BALANCE)
+        .setTotalBalance(totalBalance)
         .setPlayerId(PLAYER_ID)
         .setToken(TOKEN)
         .setHasError(HAS_ERROR_NOT)
