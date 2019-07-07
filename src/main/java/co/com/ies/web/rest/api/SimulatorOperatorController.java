@@ -34,6 +34,7 @@ import co.com.ies.service.dto.sub.AuthDto;
 @RequestMapping("/simuladoroperador")
 public class SimulatorOperatorController {
   private static final String VOID = "doesn't apply";
+  private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
   private static final String USER = "inWPLAYIesUser";
   private static final String PASS = "pass";
   private static final String PLAYER_ID = "playerId";
@@ -61,8 +62,9 @@ public class SimulatorOperatorController {
       @Valid @RequestBody AuthenticateOperatorOutDto operatorOut) {
     System.out.println(operatorOut);
     if(!auth.equals(operatorOut.getAuth())) {
+      System.out.println(ZERO_BD);
       return new AuthenticateOperatorInDto()
-          .setTotalBalance(BigDecimal.ZERO)
+          .setTotalBalance(ZERO_BD)
           .setPlayerId(VOID)
           .setToken(VOID)
           .setHasError(HAS_ERROR)
@@ -72,7 +74,7 @@ public class SimulatorOperatorController {
     String player = getPlayerDecodingJWT(operatorOut.getToken());
     if(!totalBalances.containsKey(player))totalBalances.put(player, TOTAL_BALANCE);
     return new AuthenticateOperatorInDto()
-        .setTotalBalance(totalBalances.get(operatorOut.getToken()))
+        .setTotalBalance(totalBalances.get(player))
         .setPlayerId(PLAYER_ID)
         .setToken(operatorOut.getToken())
         .setHasError(HAS_ERROR_NOT)
@@ -93,7 +95,7 @@ public class SimulatorOperatorController {
     System.out.println(operatorOut);
     if(!auth.equals(operatorOut.getAuth())) {
       return new DebitAndCreditOperatorInDto()
-          .setTotalBalance(BigDecimal.ZERO)
+          .setTotalBalance(ZERO_BD)
           .setPlayerId(VOID)
           .setToken(VOID)
           .setHasError(HAS_ERROR)
@@ -128,7 +130,7 @@ public class SimulatorOperatorController {
     System.out.println(operatorOut);
     if(!auth.equals(operatorOut.getAuth())) {
       return new RollbackOperatorInDto()
-          .setTotalBalance(BigDecimal.ZERO)
+          .setTotalBalance(ZERO_BD)
           .setPlayerId(VOID)
           .setToken(VOID)
           .setHasError(HAS_ERROR)
@@ -159,7 +161,7 @@ public class SimulatorOperatorController {
     System.out.println(operatorOut);
     if(!auth.equals(operatorOut.getAuth())) {
       return new GetBalanceOperatorInDto()
-          .setTotalBalance(BigDecimal.ZERO)
+          .setTotalBalance(ZERO_BD)
           .setPlayerId(VOID)
           .setToken(VOID)
           .setHasError(HAS_ERROR)
