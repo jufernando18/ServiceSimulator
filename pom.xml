@@ -15,7 +15,7 @@
 	<description>Simulador de servicios para pruebas</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
