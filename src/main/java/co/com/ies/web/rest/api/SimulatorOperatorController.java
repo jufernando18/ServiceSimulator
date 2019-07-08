@@ -4,20 +4,18 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.validation.Valid;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.com.ies.service.dto.api.AuthenticateOperatorInDto;
@@ -33,6 +31,7 @@ import co.com.ies.service.dto.sub.AuthDto;
 @RestController
 @RequestMapping("/simuladoroperador")
 public class SimulatorOperatorController {
+  private static final int ERROR_ID_102 = 102;
   private static final String VOID = "doesn't apply";
   private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
   private static final String USER = "inWPLAYIesUser";
@@ -46,9 +45,11 @@ public class SimulatorOperatorController {
   private static final Integer ERROR_ID_SOME = -1;
   private static final String ERROR_DESCRIPTION = VOID;
   private static final String ERROR_DESCRIPTION_SOME = "Bab credentials";
+  private static final String ERROR_DESCRIPTION_102 = "Not registered";
   private static final String PLATFORM_TRANSACTION_ID = "124platform421";
   private static final AuthDto auth = new AuthDto().setUser(USER).setPass(PASS);
   private Map<String, BigDecimal> totalBalances = new HashMap<>();
+  private Map<String, String> players = new HashMap<>();
 
   /**
    * .
@@ -58,27 +59,19 @@ public class SimulatorOperatorController {
    */
   @PostMapping("/authenticate")
   @ResponseBody
-  public AuthenticateOperatorInDto authenticate(
-      @Valid @RequestBody AuthenticateOperatorOutDto operatorOut) {
+  public AuthenticateOperatorInDto authenticate(@Valid @RequestBody AuthenticateOperatorOutDto operatorOut) {
     System.out.println(operatorOut);
-    if(!auth.equals(operatorOut.getAuth())) {
+    String token = operatorOut.getToken();
+    if (!auth.equals(operatorOut.getAuth())) {
       System.out.println(ZERO_BD);
-      return new AuthenticateOperatorInDto()
-          .setTotalBalance(ZERO_BD)
-          .setPlayerId(VOID)
-          .setToken(VOID)
-          .setHasError(HAS_ERROR)
-          .setErrorId(ERROR_ID_SOME)
-          .setErrorDescription(ERROR_DESCRIPTION_SOME);
+      return new AuthenticateOperatorInDto().setTotalBalance(ZERO_BD).setPlayerId(VOID).setToken(VOID)
+          .setHasError(HAS_ERROR).setErrorId(ERROR_ID_SOME).setErrorDescription(ERROR_DESCRIPTION_SOME);
     }
-    String player = getPlayerDecodingJWT(operatorOut.getToken());
-    if(!totalBalances.containsKey(player))totalBalances.put(player, TOTAL_BALANCE);
-    return new AuthenticateOperatorInDto()
-        .setTotalBalance(totalBalances.get(player))
-        .setPlayerId(PLAYER_ID)
-        .setToken(operatorOut.getToken())
-        .setHasError(HAS_ERROR_NOT)
-        .setErrorId(ERROR_ID)
+    players.putIfAbsent(token, getPlayerDecodingJWT(token));
+    if (!totalBalances.containsKey(players.get(token)))
+      totalBalances.put(players.get(token), TOTAL_BALANCE);
+    return new AuthenticateOperatorInDto().setTotalBalance(totalBalances.get(players.get(token))).setPlayerId(PLAYER_ID)
+        .setToken(operatorOut.getToken()).setHasError(HAS_ERROR_NOT).setErrorId(ERROR_ID)
         .setErrorDescription(ERROR_DESCRIPTION);
   }
 
@@ -90,23 +83,32 @@ public class SimulatorOperatorController {
    */
   @PostMapping("/debitandcredit")
   @ResponseBody
-  public DebitAndCreditOperatorInDto debitAndCredit(
-      @Valid @RequestBody DebitAndCreditOperatorOutDto operatorOut) {
+  public DebitAndCreditOperatorInDto debitAndCredit(@Valid @RequestBody DebitAndCreditOperatorOutDto operatorOut) {
     System.out.println(operatorOut);
-    if(!auth.equals(operatorOut.getAuth())) {
+    String token = operatorOut.getToken();
+    if (!auth.equals(operatorOut.getAuth())) {
       return new DebitAndCreditOperatorInDto()
-          .setTotalBalance(ZERO_BD)
-          .setPlayerId(VOID)
-          .setToken(VOID)
-          .setHasError(HAS_ERROR)
-          .setErrorId(ERROR_ID_SOME)
-          .setErrorDescription(ERROR_DESCRIPTION_SOME)
-          .setPlatformTransactionId(VOID);
+        .setTotalBalance(ZERO_BD)
+        .setPlayerId(VOID)
+        .setToken(VOID)
+        .setHasError(HAS_ERROR)
+        .setErrorId(ERROR_ID_SOME)
+        .setErrorDescription(ERROR_DESCRIPTION_SOME)
+        .setPlatformTransactionId(VOID);
     }
-    String player = getPlayerDecodingJWT(operatorOut.getToken());
-    BigDecimal totalBalance = totalBalances.get(player);
+    BigDecimal totalBalance = totalBalances.get(players.get(token));
+    if (Objects.isNull(totalBalance)) {
+      return new DebitAndCreditOperatorInDto()
+        .setTotalBalance(ZERO_BD)
+        .setPlayerId(VOID)
+        .setToken(VOID)
+        .setHasError(HAS_ERROR)
+        .setErrorId(ERROR_ID_102)
+        .setErrorDescription(ERROR_DESCRIPTION_102)
+        .setPlatformTransactionId(VOID);
+    }
     totalBalance = totalBalance.add(operatorOut.getCreditAmount()).subtract(operatorOut.getDebitAmount());
-    totalBalances.put(player, totalBalance);
+    totalBalances.put(players.get(token), totalBalance);
     return new DebitAndCreditOperatorInDto()
         .setTotalBalance(totalBalance)
         .setPlayerId(PLAYER_ID)
@@ -159,6 +161,7 @@ public class SimulatorOperatorController {
   public GetBalanceOperatorInDto getBalance(
       @Valid @RequestBody GetBalanceOperatorOutDto operatorOut) {
     System.out.println(operatorOut);
+    String token = operatorOut.getToken();
     if(!auth.equals(operatorOut.getAuth())) {
       return new GetBalanceOperatorInDto()
           .setTotalBalance(ZERO_BD)
@@ -169,7 +172,7 @@ public class SimulatorOperatorController {
           .setErrorDescription(ERROR_DESCRIPTION_SOME);
     }
     return new GetBalanceOperatorInDto()
-        .setTotalBalance(totalBalances.get(operatorOut.getToken()))
+        .setTotalBalance(totalBalances.get(players.get(token)))
         .setPlayerId(PLAYER_ID)
         .setToken(TOKEN)
         .setHasError(HAS_ERROR_NOT)
@@ -195,7 +198,7 @@ public class SimulatorOperatorController {
       
       String authField = map.get("auth");
       String user = authField.split(":")[1];
-      System.out.println("user : "+ user);   
+      System.out.println("player : "+ user);   
       return user;
   }
 }
