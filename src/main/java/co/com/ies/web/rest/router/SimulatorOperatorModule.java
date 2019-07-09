@@ -52,7 +52,7 @@ public class SimulatorOperatorModule {
   private static final String GUARANTEED7 = "700000";
   private static final String GUARANTEED8 = "300000";  
   private static final String PERCENTAGE = "40.0";
-  private static final String PERCENTAGE2 = "20";
+  private static final String PERCENTAGE2 = "20.0";
   private static final String PERCENTAGE3 = "50.6";
   private static final String PERCENTAGE4 = "30.0";
   private static final String PERCENTAGE5 = "58.7";
