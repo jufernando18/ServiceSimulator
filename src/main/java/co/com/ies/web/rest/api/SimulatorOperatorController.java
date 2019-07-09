@@ -67,11 +67,13 @@ public class SimulatorOperatorController {
       return new AuthenticateOperatorInDto().setTotalBalance(ZERO_BD).setPlayerId(VOID).setToken(VOID)
           .setHasError(HAS_ERROR).setErrorId(ERROR_ID_SOME).setErrorDescription(ERROR_DESCRIPTION_SOME);
     }
-    players.putIfAbsent(token, getPlayerDecodingJWT(token));
+    players.putIfAbsent(token, getPlayerDecodingJWT(token)); 
     if (!totalBalances.containsKey(players.get(token)))
       totalBalances.put(players.get(token), TOTAL_BALANCE);
-    return new AuthenticateOperatorInDto().setTotalBalance(totalBalances.get(players.get(token))).setPlayerId(PLAYER_ID)
-        .setToken(operatorOut.getToken()).setHasError(HAS_ERROR_NOT).setErrorId(ERROR_ID)
+      System.out.println("player ByToken : "+ players.get(token));   
+      System.out.println("current balance : "+ totalBalances.get(players.get(token)));  
+    return new AuthenticateOperatorInDto().setTotalBalance(totalBalances.get(players.get(token))).setPlayerId(players.get(token))
+        .setToken(token).setHasError(HAS_ERROR_NOT).setErrorId(ERROR_ID)
         .setErrorDescription(ERROR_DESCRIPTION);
   }
 
@@ -111,10 +113,13 @@ public class SimulatorOperatorController {
     totalBalance = totalBalance.add(transactionValue);
     totalBalances.put(players.get(token), totalBalance);
     transactions.put(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID, transactionValue);
+    System.out.println("player ByToken | ByRequest: "+players.get(token)+" | "+operatorOut.getPlayerId());   
+    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID));  
+    System.out.println("updated balance : "+ totalBalances.get(players.get(token)));  
     return new DebitAndCreditOperatorInDto()
-        .setTotalBalance(totalBalance)
-        .setPlayerId(PLAYER_ID)
-        .setToken(TOKEN)
+        .setTotalBalance(totalBalances.get(players.get(token)))
+        .setPlayerId(players.get(token))
+        .setToken(token)
         .setHasError(HAS_ERROR_NOT)
         .setErrorId(ERROR_ID)
         .setErrorDescription(ERROR_DESCRIPTION)
@@ -146,9 +151,12 @@ public class SimulatorOperatorController {
     BigDecimal totalBalance = totalBalances.get(operatorOut.getPlayerId()).add(transactionValue);
     totalBalances.put(operatorOut.getPlayerId(), totalBalance);
     transactions.put(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID, transactionValue);
+    System.out.println("player ByRequest: "+operatorOut.getPlayerId());   
+    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID));  
+    System.out.println("updated balance : "+ totalBalances.get(operatorOut.getPlayerId()));  
     return new RollbackOperatorInDto()
-        .setTotalBalance(TOTAL_BALANCE)
-        .setPlayerId(PLAYER_ID)
+        .setTotalBalance(totalBalances.get(operatorOut.getPlayerId()))
+        .setPlayerId(operatorOut.getPlayerId())
         .setToken(TOKEN)
         .setHasError(HAS_ERROR_NOT)
         .setErrorId(ERROR_ID)
@@ -177,10 +185,12 @@ public class SimulatorOperatorController {
           .setErrorId(ERROR_ID_SOME)
           .setErrorDescription(ERROR_DESCRIPTION_SOME);
     }
+    System.out.println("player ByToken : "+ players.get(token));   
+    System.out.println("current balance : "+ totalBalances.get(players.get(token)));  
     return new GetBalanceOperatorInDto()
         .setTotalBalance(totalBalances.get(players.get(token)))
-        .setPlayerId(PLAYER_ID)
-        .setToken(TOKEN)
+        .setPlayerId(players.get(token))
+        .setToken(token)
         .setHasError(HAS_ERROR_NOT)
         .setErrorId(ERROR_ID)
         .setErrorDescription(ERROR_DESCRIPTION);
@@ -203,8 +213,6 @@ public class SimulatorOperatorController {
       }
       
       String authField = map.get("auth");
-      String user = authField.split(":")[1];
-      System.out.println("player : "+ user);   
-      return user;
+      return authField.split(":")[1];
   }
 }
