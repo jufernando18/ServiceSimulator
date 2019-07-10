@@ -71,7 +71,8 @@ public class SimulatorOperatorController {
     if (!totalBalances.containsKey(players.get(token)))
       totalBalances.put(players.get(token), TOTAL_BALANCE);
       System.out.println("player ByToken : "+ players.get(token));   
-      System.out.println("current balance : "+ totalBalances.get(players.get(token)));  
+      System.out.println("current player balances: ");  
+      totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
     return new AuthenticateOperatorInDto().setTotalBalance(totalBalances.get(players.get(token))).setPlayerId(players.get(token))
         .setToken(token).setHasError(HAS_ERROR_NOT).setErrorId(ERROR_ID)
         .setErrorDescription(ERROR_DESCRIPTION);
@@ -115,7 +116,8 @@ public class SimulatorOperatorController {
     transactions.put(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID, transactionValue);
     System.out.println("player ByToken | ByRequest: "+players.get(token)+" | "+operatorOut.getPlayerId());   
     System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID));  
-    System.out.println("updated balance : "+ totalBalances.get(players.get(token)));  
+    System.out.println("current player balances: ");  
+    totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
     return new DebitAndCreditOperatorInDto()
         .setTotalBalance(totalBalances.get(players.get(token)))
         .setPlayerId(players.get(token))
@@ -153,7 +155,8 @@ public class SimulatorOperatorController {
     transactions.put(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID, transactionValue);
     System.out.println("player ByRequest: "+operatorOut.getPlayerId());   
     System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID));  
-    System.out.println("updated balance : "+ totalBalances.get(operatorOut.getPlayerId()));  
+    System.out.println("current player balances: ");  
+    totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
     return new RollbackOperatorInDto()
         .setTotalBalance(totalBalances.get(operatorOut.getPlayerId()))
         .setPlayerId(operatorOut.getPlayerId())
@@ -186,7 +189,8 @@ public class SimulatorOperatorController {
           .setErrorDescription(ERROR_DESCRIPTION_SOME);
     }
     System.out.println("player ByToken : "+ players.get(token));   
-    System.out.println("current balance : "+ totalBalances.get(players.get(token)));  
+    System.out.println("current player balances: ");  
+    totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
     return new GetBalanceOperatorInDto()
         .setTotalBalance(totalBalances.get(players.get(token)))
         .setPlayerId(players.get(token))
