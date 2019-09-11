@@ -20,6 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.com.ies.service.dto.api.AuthenticateOperatorInDto;
 import co.com.ies.service.dto.api.AuthenticateOperatorOutDto;
+import co.com.ies.service.dto.api.DebitAndCreditCodeOperatorInDto;
+import co.com.ies.service.dto.api.DebitAndCreditCodeOperatorOutDto;
 import co.com.ies.service.dto.api.DebitAndCreditOperatorInDto;
 import co.com.ies.service.dto.api.DebitAndCreditOperatorOutDto;
 import co.com.ies.service.dto.api.GetBalanceOperatorInDto;
@@ -35,6 +37,7 @@ public class SimulatorOperatorController {
   private static final int ERROR_ID_21 = 21;
   private static final String VOID = "doesn't apply";
   private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
+  private static final Integer ZERO_I = 0;
   private static final String USER = "inWPLAYIesUser";
   private static final String PASS = "pass";
   private static final String PLAYER_ID = "playerId";
@@ -122,6 +125,54 @@ public class SimulatorOperatorController {
         .setErrorDescription(ERROR_DESCRIPTION)
         .setPlatformTransactionId(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID);
   }
+  
+  /**
+   * .
+   * 
+   * @param operatorOut .
+   * @return .
+   */
+  @PostMapping("/debitandcreditcode")
+  @ResponseBody
+  public DebitAndCreditCodeOperatorInDto debitAndCreditCode(@Valid @RequestBody DebitAndCreditCodeOperatorOutDto operatorOut) {
+    System.out.println(operatorOut);
+    String token = operatorOut.getToken();
+    
+    if (!auth.equals(operatorOut.getAuth())) {
+      return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_SOME, ERROR_DESCRIPTION_SOME);
+    }
+    
+    BigDecimal totalBalance = totalBalances.get(players.get(token));
+    if (Objects.isNull(totalBalance)) {
+      return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_102, ERROR_DESCRIPTION_102);
+    }
+    
+    String code = operatorOut.getCode();
+    Integer numCards = Integer.valueOf(code.split("-")[0]);
+    BigDecimal amount = new BigDecimal(code.split("-")[1]);
+    BigDecimal transactionValue = BigDecimal.ZERO;
+    totalBalance = totalBalance.add(transactionValue);    
+    if (totalBalance.compareTo(BigDecimal.ZERO) < 0 || numCards.equals(0)) {
+      return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_21, ERROR_DESCRIPTION_21);
+    }
+
+    totalBalances.put(players.get(token), totalBalance);
+    transactions.put(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID, transactionValue);
+    System.out.println("player ByToken | ByRequest: "+players.get(token)+" | "+operatorOut.getPlayerId());   
+    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID));  
+    System.out.println("current player balances: ");  
+    totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
+    return new DebitAndCreditCodeOperatorInDto()
+        .setTotalBalance(totalBalances.get(players.get(token)))
+        .setAmount(amount)
+        .setNumCards(numCards)
+        .setPlayerId(players.get(token))
+        .setToken(token)
+        .setHasError(HAS_ERROR_NOT)
+        .setErrorId(ERROR_ID)
+        .setErrorDescription(ERROR_DESCRIPTION)
+        .setPlatformTransactionId(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID);
+  }  
 
   /**
    * .
@@ -226,4 +277,18 @@ public class SimulatorOperatorController {
       .setErrorDescription(errorMsg)
       .setPlatformTransactionId(VOID);
   }
+  
+  public DebitAndCreditCodeOperatorInDto debitAndCreditCodeErrorStructureWithCodeAndMsg(Integer errorCode,
+      String errorMsg) {
+    return new DebitAndCreditCodeOperatorInDto()
+      .setTotalBalance(ZERO_BD)
+      .setAmount(ZERO_BD)
+      .setNumCards(ZERO_I)
+      .setPlayerId(VOID)
+      .setToken(VOID)
+      .setHasError(HAS_ERROR)
+      .setErrorId(errorCode)
+      .setErrorDescription(errorMsg)
+      .setPlatformTransactionId(VOID);
+  }  
 }
