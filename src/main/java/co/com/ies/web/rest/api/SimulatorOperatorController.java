@@ -2,6 +2,7 @@ package co.com.ies.web.rest.api;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -66,6 +67,7 @@ public class SimulatorOperatorController {
   @PostMapping("/authenticate")
   @ResponseBody
   public AuthenticateOperatorInDto authenticate(@Valid @RequestBody AuthenticateOperatorOutDto operatorOut) {
+    System.out.println(ZonedDateTime.now());
     System.out.println(operatorOut);
     String token = operatorOut.getToken();
     if (!auth.equals(operatorOut.getAuth())) {
@@ -92,6 +94,7 @@ public class SimulatorOperatorController {
   @PostMapping("/debitandcredit")
   @ResponseBody
   public DebitAndCreditOperatorInDto debitAndCredit(@Valid @RequestBody DebitAndCreditOperatorOutDto operatorOut) {
+    System.out.println(ZonedDateTime.now());
     System.out.println(operatorOut);
     String token = operatorOut.getToken();
     
@@ -135,6 +138,7 @@ public class SimulatorOperatorController {
   @PostMapping("/debitandcreditcode")
   @ResponseBody
   public DebitAndCreditCodeOperatorInDto debitAndCreditCode(@Valid @RequestBody DebitAndCreditCodeOperatorOutDto operatorOut) {
+    System.out.println(ZonedDateTime.now());
     System.out.println(operatorOut);
     String token = operatorOut.getToken();
     
@@ -184,6 +188,7 @@ public class SimulatorOperatorController {
   @ResponseBody
   public RollbackOperatorInDto rollback(
       @Valid @RequestBody RollbackOperatorOutDto operatorOut) {
+        System.out.println(ZonedDateTime.now());
     System.out.println(operatorOut);
     if(!auth.equals(operatorOut.getAuth())) {
       return new RollbackOperatorInDto()
@@ -223,6 +228,7 @@ public class SimulatorOperatorController {
   @ResponseBody
   public GetBalanceOperatorInDto getBalance(
       @Valid @RequestBody GetBalanceOperatorOutDto operatorOut) {
+    System.out.println(ZonedDateTime.now());
     System.out.println(operatorOut);
     String token = operatorOut.getToken();
     if(!auth.equals(operatorOut.getAuth())) {
