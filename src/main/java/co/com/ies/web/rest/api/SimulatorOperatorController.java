@@ -114,9 +114,9 @@ public class SimulatorOperatorController {
     }
 
     totalBalances.put(players.get(token), totalBalance);
-    transactions.put(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID, transactionValue);
+    transactions.put(operatorOut.getIesTransactionId(), transactionValue);
     System.out.println("player ByToken | ByRequest: "+players.get(token)+" | "+operatorOut.getPlayerId());   
-    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID));  
+    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()));  
     System.out.println("current player balances: ");  
     totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
     return new DebitAndCreditOperatorInDto()
@@ -161,9 +161,9 @@ public class SimulatorOperatorController {
     }
 
     totalBalances.put(players.get(token), totalBalance);
-    transactions.put(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID, transactionValue);
+    transactions.put(operatorOut.getIesTransactionId(), transactionValue);
     System.out.println("player ByToken | ByRequest: "+players.get(token)+" | "+operatorOut.getPlayerId());   
-    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID));  
+    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()));  
     System.out.println("current player balances: ");  
     totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
     return new DebitAndCreditCodeOperatorInDto()
@@ -203,9 +203,9 @@ public class SimulatorOperatorController {
     BigDecimal transactionValue = transactions.get(operatorOut.getIesRelatedTransactionId()).negate();
     BigDecimal totalBalance = totalBalances.get(operatorOut.getPlayerId()).add(transactionValue);
     totalBalances.put(operatorOut.getPlayerId(), totalBalance);
-    transactions.put(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID, transactionValue);
+    transactions.put(operatorOut.getIesTransactionId(), transactionValue);
     System.out.println("player ByRequest: "+operatorOut.getPlayerId());   
-    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()+PLATFORM_TRANSACTION_ID));  
+    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()));  
     System.out.println("current player balances: ");  
     totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
     return new RollbackOperatorInDto()
