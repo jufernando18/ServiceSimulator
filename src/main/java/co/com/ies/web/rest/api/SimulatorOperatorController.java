@@ -35,6 +35,8 @@ import co.com.ies.service.dto.sub.AuthDto;
 @RequestMapping("/simuladoroperador")
 public class SimulatorOperatorController {
   private static final int ERROR_ID_102 = 102;
+  private static final int ERROR_ID_29 = 29;
+  private static final int ERROR_ID_109 = 109;
   private static final int ERROR_ID_21 = 21;
   private static final String VOID = "doesn't apply";
   private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
@@ -51,7 +53,10 @@ public class SimulatorOperatorController {
   private static final String ERROR_DESCRIPTION = VOID;
   private static final String ERROR_DESCRIPTION_SOME = "Bab credentials";
   private static final String ERROR_DESCRIPTION_102 = "Not registered";
-  private static final String ERROR_DESCRIPTION_21 = "Not Enough Balance";
+  private static final String ERROR_DESCRIPTION_21 = "No tienes saldo suficiente";
+  private static final String ERROR_DESCRIPTION_21_CODE = "El código ya fue redimido";
+  private static final String ERROR_DESCRIPTION_29 = "Estás bloqueado";
+  private static final String ERROR_DESCRIPTION_109 = "El código es erróneo";
   private static final String PLATFORM_TRANSACTION_ID = "wplay";
   private static final AuthDto auth = new AuthDto().setUser(USER).setPass(PASS);
   private Map<String, BigDecimal> totalBalances = new HashMap<>();
@@ -122,14 +127,20 @@ public class SimulatorOperatorController {
     if (Objects.isNull(totalBalance)) {
       return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_102, ERROR_DESCRIPTION_102);
     }
-    
     String code = operatorOut.getCode();
-    Integer numCards = Integer.valueOf(code.split("-")[0]);
-    BigDecimal amount = new BigDecimal(code.split("-")[1]);
+    Integer numCards;
+    BigDecimal amount;
+    try {
+      numCards = Integer.valueOf(code.split("-")[0]);
+      amount = new BigDecimal(code.split("-")[1]); 
+    } catch (Exception e) {
+      return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_109, ERROR_DESCRIPTION_109);
+    }
+
     BigDecimal transactionValue = BigDecimal.ZERO;
     totalBalance = totalBalance.add(transactionValue);    
     if (totalBalance.compareTo(BigDecimal.ZERO) < 0 || numCards.equals(0)) {
-      return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_21, ERROR_DESCRIPTION_21);
+      return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_21, ERROR_DESCRIPTION_21_CODE);
     }
 
     totalBalances.put(players.get(token), totalBalance);
