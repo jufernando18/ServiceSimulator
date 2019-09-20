@@ -67,21 +67,13 @@ public class SimulatorOperatorController {
   @PostMapping("/authenticate")
   @ResponseBody
   public AuthenticateOperatorInDto authenticate(@Valid @RequestBody AuthenticateOperatorOutDto operatorOut) {
-    //System.out.println(ZonedDateTime.now());
-    //System.out.println(operatorOut);
     String token = operatorOut.getToken();
     if (!auth.equals(operatorOut.getAuth())) {
       return new AuthenticateOperatorInDto().setTotalBalance(ZERO_BD).setPlayerId(VOID).setToken(VOID)
           .setHasError(HAS_ERROR).setErrorId(ERROR_ID_SOME).setErrorDescription(ERROR_DESCRIPTION_SOME);
     }
     players.putIfAbsent(token, getPlayerDecodingJWT(token)); 
-    /*if (!totalBalances.containsKey(players.get(token)))
-      totalBalances.put(players.get(token), TOTAL_BALANCE);
-      System.out.println("player ByToken : "+ players.get(token));   
-      System.out.println("current player balances: ");  
-      totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});*/
     return new AuthenticateOperatorInDto()
-        //.setTotalBalance(totalBalances.get(players.get(token)))
         .setTotalBalance(BigDecimal.TEN)
         .setPlayerId(players.get(token))
         .setToken(token).setHasError(HAS_ERROR_NOT).setErrorId(ERROR_ID)
@@ -97,39 +89,13 @@ public class SimulatorOperatorController {
   @PostMapping("/debitandcredit")
   @ResponseBody
   public DebitAndCreditOperatorInDto debitAndCredit(@Valid @RequestBody DebitAndCreditOperatorOutDto operatorOut) {
-    //System.out.println(ZonedDateTime.now());
-    //System.out.println(operatorOut);
     String token = operatorOut.getToken();
     
     if (!auth.equals(operatorOut.getAuth())) {
       return debitAndCreditErrorStructureWithCodeAndMsg(ERROR_ID_SOME, ERROR_DESCRIPTION_SOME);
     }
-  /*  //
-    BigDecimal totalBalance = totalBalances.get(players.get(token));
-    if (Objects.isNull(totalBalance)) {
-      return debitAndCreditErrorStructureWithCodeAndMsg(ERROR_ID_102, ERROR_DESCRIPTION_102);
-    }
-    
-    BigDecimal transactionValue = operatorOut.getCreditAmount().subtract(operatorOut.getDebitAmount());
-    totalBalance = totalBalance.add(transactionValue);    
-    if (totalBalance.compareTo(BigDecimal.ZERO) < 0) {
-      return debitAndCreditErrorStructureWithCodeAndMsg(ERROR_ID_21, ERROR_DESCRIPTION_21);
-    }
-
-    totalBalances.put(players.get(token), totalBalance);
-    
-    transactions.put(operatorOut.getIesTransactionId(), transactionValue);
-
-    transactions.put(operatorOut.getIesTransactionId(), BigDecimal.ZERO);
-    
-
-    System.out.println("player ByToken | ByRequest: "+players.get(token)+" | "+operatorOut.getPlayerId());   
-    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()));  
-    System.out.println("current player balances: ");  
-    //totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});*/
     return new DebitAndCreditOperatorInDto()
         .setTotalBalance(BigDecimal.TEN)
-        //.setTotalBalance(totalBalances.get(players.get(token)))
         .setPlayerId(players.get(token))
         .setToken(token)
         .setHasError(HAS_ERROR_NOT)
@@ -147,14 +113,11 @@ public class SimulatorOperatorController {
   @PostMapping("/debitandcreditcode")
   @ResponseBody
   public DebitAndCreditCodeOperatorInDto debitAndCreditCode(@Valid @RequestBody DebitAndCreditCodeOperatorOutDto operatorOut) {
-    System.out.println(ZonedDateTime.now());
-    System.out.println(operatorOut);
     String token = operatorOut.getToken();
     
     if (!auth.equals(operatorOut.getAuth())) {
       return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_SOME, ERROR_DESCRIPTION_SOME);
     }
-    
     BigDecimal totalBalance = totalBalances.get(players.get(token));
     if (Objects.isNull(totalBalance)) {
       return debitAndCreditCodeErrorStructureWithCodeAndMsg(ERROR_ID_102, ERROR_DESCRIPTION_102);
@@ -171,10 +134,6 @@ public class SimulatorOperatorController {
 
     totalBalances.put(players.get(token), totalBalance);
     transactions.put(operatorOut.getIesTransactionId(), transactionValue);
-    System.out.println("player ByToken | ByRequest: "+players.get(token)+" | "+operatorOut.getPlayerId());   
-    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()));  
-    System.out.println("current player balances: ");  
-    totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
     return new DebitAndCreditCodeOperatorInDto()
         .setTotalBalance(totalBalances.get(players.get(token)))
         .setAmount(amount)
@@ -197,8 +156,6 @@ public class SimulatorOperatorController {
   @ResponseBody
   public RollbackOperatorInDto rollback(
       @Valid @RequestBody RollbackOperatorOutDto operatorOut) {
-        System.out.println(ZonedDateTime.now());
-    System.out.println(operatorOut);
     if(!auth.equals(operatorOut.getAuth())) {
       return new RollbackOperatorInDto()
           .setTotalBalance(ZERO_BD)
@@ -213,10 +170,7 @@ public class SimulatorOperatorController {
     BigDecimal totalBalance = totalBalances.get(operatorOut.getPlayerId()).add(transactionValue);
     totalBalances.put(operatorOut.getPlayerId(), totalBalance);
     transactions.put(operatorOut.getIesTransactionId(), transactionValue);
-    System.out.println("player ByRequest: "+operatorOut.getPlayerId());   
-    System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()));  
-    System.out.println("current player balances: ");  
-    totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
+  
     return new RollbackOperatorInDto()
         .setTotalBalance(totalBalances.get(operatorOut.getPlayerId()))
         .setPlayerId(operatorOut.getPlayerId())
