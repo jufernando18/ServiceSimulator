@@ -67,20 +67,23 @@ public class SimulatorOperatorController {
   @PostMapping("/authenticate")
   @ResponseBody
   public AuthenticateOperatorInDto authenticate(@Valid @RequestBody AuthenticateOperatorOutDto operatorOut) {
-    System.out.println(ZonedDateTime.now());
-    System.out.println(operatorOut);
+    //System.out.println(ZonedDateTime.now());
+    //System.out.println(operatorOut);
     String token = operatorOut.getToken();
     if (!auth.equals(operatorOut.getAuth())) {
       return new AuthenticateOperatorInDto().setTotalBalance(ZERO_BD).setPlayerId(VOID).setToken(VOID)
           .setHasError(HAS_ERROR).setErrorId(ERROR_ID_SOME).setErrorDescription(ERROR_DESCRIPTION_SOME);
     }
     players.putIfAbsent(token, getPlayerDecodingJWT(token)); 
-    if (!totalBalances.containsKey(players.get(token)))
+    /*if (!totalBalances.containsKey(players.get(token)))
       totalBalances.put(players.get(token), TOTAL_BALANCE);
       System.out.println("player ByToken : "+ players.get(token));   
       System.out.println("current player balances: ");  
-      totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
-    return new AuthenticateOperatorInDto().setTotalBalance(totalBalances.get(players.get(token))).setPlayerId(players.get(token))
+      totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});*/
+    return new AuthenticateOperatorInDto()
+        //.setTotalBalance(totalBalances.get(players.get(token)))
+        .setTotalBalance(BigDecimal.TEN)
+        .setPlayerId(players.get(token))
         .setToken(token).setHasError(HAS_ERROR_NOT).setErrorId(ERROR_ID)
         .setErrorDescription(ERROR_DESCRIPTION);
   }
@@ -94,14 +97,14 @@ public class SimulatorOperatorController {
   @PostMapping("/debitandcredit")
   @ResponseBody
   public DebitAndCreditOperatorInDto debitAndCredit(@Valid @RequestBody DebitAndCreditOperatorOutDto operatorOut) {
-    System.out.println(ZonedDateTime.now());
-    System.out.println(operatorOut);
+    //System.out.println(ZonedDateTime.now());
+    //System.out.println(operatorOut);
     String token = operatorOut.getToken();
     
     if (!auth.equals(operatorOut.getAuth())) {
       return debitAndCreditErrorStructureWithCodeAndMsg(ERROR_ID_SOME, ERROR_DESCRIPTION_SOME);
     }
-    
+  /*  //
     BigDecimal totalBalance = totalBalances.get(players.get(token));
     if (Objects.isNull(totalBalance)) {
       return debitAndCreditErrorStructureWithCodeAndMsg(ERROR_ID_102, ERROR_DESCRIPTION_102);
@@ -114,13 +117,19 @@ public class SimulatorOperatorController {
     }
 
     totalBalances.put(players.get(token), totalBalance);
+    
     transactions.put(operatorOut.getIesTransactionId(), transactionValue);
+
+    transactions.put(operatorOut.getIesTransactionId(), BigDecimal.ZERO);
+    
+
     System.out.println("player ByToken | ByRequest: "+players.get(token)+" | "+operatorOut.getPlayerId());   
     System.out.println("transaction value : "+ transactions.get(operatorOut.getIesTransactionId()));  
     System.out.println("current player balances: ");  
-    totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});
+    //totalBalances.forEach((k,v)->{System.out.println(k+"\t"+v);});*/
     return new DebitAndCreditOperatorInDto()
-        .setTotalBalance(totalBalances.get(players.get(token)))
+        .setTotalBalance(BigDecimal.TEN)
+        //.setTotalBalance(totalBalances.get(players.get(token)))
         .setPlayerId(players.get(token))
         .setToken(token)
         .setHasError(HAS_ERROR_NOT)
